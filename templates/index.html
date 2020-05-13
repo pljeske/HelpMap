@@ -1,0 +1,12 @@
+{% include "base.html" %}
+
+{% block content %}
+    <p>INDEX</p>
+    {% if user.is_authenticated %}
+        <p>AUTHENTICATED</p>
+        <p>{{ user }}</p>
+        <p>{{ user.username }}</p>
+        {% else %}
+        <p>NOT AUTHENTICATED</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+</head>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+<style>
+    .text-middle {
+        width: 80%;
+        margin: auto;
+        margin-top: 50px;
+    }
+</style>
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+<body>
+{% block header %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand">Corona Help Map</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Map </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/who">Who? </a>
+      </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="/map/help/">Help </a>
+            </li>
+        {% endif %}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+        {% if user.is_authenticated %}
+            <li class="nav-item"><a href="/account/logout" class="nav-link">Logout</a></li>
+        {% else %}
+            <li class="nav-item"><a href="/account/login" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="/account/register" class="nav-link">Register</a></li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+{% endblock %}
+</body>
+</html>
