@@ -26,4 +26,5 @@ urlpatterns = [
     path('account/logout/', regviews.do_logout, name="logout"),
     path('who/', mapviews.who, name="who"),
     path('map/help/', mapviews.create_entry, name="create-entry"),
+    path('map/add_point/', mapviews.add_help_point, name="add-point"),
 ]

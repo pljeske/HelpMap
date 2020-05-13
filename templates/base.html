@@ -12,6 +12,12 @@
         margin: auto;
         margin-top: 50px;
     }
+    .error {
+        color: darkred;
+    }
+    .success {
+        color: green;
+    }
 </style>
 {% load bootstrap4 %}
 {% bootstrap_css %}
@@ -38,6 +44,13 @@
             </li>
         {% endif %}
     </ul>
+    {% if messages %}
+    <ul class="navbar-nav justify-content-center">
+        {% for message in messages %}
+            <li {% if message.tags %}class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item"><a href="/account/logout" class="nav-link">Logout</a></li>
@@ -51,6 +64,8 @@
 {% endblock %}
 
 {% block content %}
+    <!-- content block -->
 {% endblock %}
+
 </body>
 </html>
