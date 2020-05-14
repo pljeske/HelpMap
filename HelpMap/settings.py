@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'leaflet',
     'registration',
     'map',
+    'social',
 ]
 
 MIDDLEWARE = [

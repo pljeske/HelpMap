@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from registration import views as regviews
 from map import views as mapviews
+from social import views as socialviews
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,5 @@ urlpatterns = [
     path('who/', mapviews.who, name="who"),
     path('map/help/', mapviews.create_entry, name="create-entry"),
     path('map/add_point/', mapviews.add_help_point, name="add-point"),
+    path('messages/received/', socialviews.show_messages, name="received-messages"),
 ]

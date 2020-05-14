@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+    <div class="container">
+    {% for message in mails %}
+
+              <div class="row">
+                    <div class="col">
+                        <strong>{{ message.title }}</strong>
+                    </div>
+              </div>
+              <div class="row">
+                <div class="col-2">
+                  From
+                </div>
+                <div class="col">
+                  {{ message.sender }}
+                </div>
+              </div>
+
+            <div class="row">
+                <div class="col-2">
+                    Date
+                </div>
+                <div class="col">
+                    {{ message.date }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{ message.text }}
+                </div>
+            </div>
+
+        <br/>
+    {% endfor %}
+    </div>
+{% endblock %}

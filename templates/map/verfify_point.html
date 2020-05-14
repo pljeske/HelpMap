@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
+
+
+{% block content %}
+
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <script type="text/javascript">
+
+      var collection = {{ help_points|geojsonfeature|safe }};
+      function map_init(map, options) {
+          L.geoJson(collection).addTo(map);
+      }
+    </script>
+
+    {% leaflet_map "spots" callback="window.map_init" %}
+
+{% endblock %}
