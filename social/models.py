@@ -9,3 +9,8 @@ class Message(models.Model):
     title = models.CharField(max_length=30)
     text = models.CharField(max_length=1000)
     date = models.DateTimeField()
+
+
+class Conversation(models.Model):
+    id = models.AutoField(primary_key=True)
+    messages = models.ManyToManyField(Message)
