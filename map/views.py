@@ -47,9 +47,10 @@ def add_help_point(request):
                     try:
                         new_point = HelpPoint(author=author, title=description, geom=map_point, category=category)
                         new_point.save()
-
+                        context["form"] = form
+                        context["saved_point"] = new_point
                         messages.add_message(request, messages.SUCCESS, "Your point has been added!")
-                        return redirect("index")
+                        return render(request, "map/add_help_point.html", context)
                     except Exception as e:
                         messages.add_message(request, messages.ERROR, e)
                         context["form"] = form
