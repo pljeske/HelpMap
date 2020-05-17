@@ -1,12 +1,33 @@
 {% include "base.html" %}
 {% load bootstrap4 %}
+{% load leaflet_tags %}
+{% load geojson_tags %}
 
 {% block content %}
-    <div style="width:25%; margin: auto">
-    <form action="" method="POST">
-        {% csrf_token %}
-        {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">Add</button>
-    </form>
-    </div>
+    {% leaflet_js %}
+    {% leaflet_css %}
+    <div class="view">
+		<div class="row">
+            <div class="col-md-8 column">
+                {% leaflet_map "spots" callback="window.map_init" %}
+            </div>
+            <div class="col-md-4 column">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-primary" value="test">Test</button>
+                </form>
+            </div>
+        </div>
+	</div>
+
+    <script>
+        var saved_point = {{ saved_point|geojsonfeature:"popupContent"|safe }};
+
+        function map_init(map, options) {
+            var sp = L.geoJson(saved_point).addTo(map);
+            sp.bindPopup(saved_point.properties.popupContent);
+        }
+    </script>
+
 {% endblock %}
