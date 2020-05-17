@@ -34,6 +34,8 @@ def add_help_point(request):
                     city = form.cleaned_data.get("city")
                     description = form.cleaned_data.get("description")
                     point = get_lat_long(street, street_nr, zip_code)
+                    long = point[0]
+                    lat = point[1]
 
                     category = Category.objects.all().filter(title=form.cleaned_data.get("category"))
                     category = category[0]
@@ -45,7 +47,7 @@ def add_help_point(request):
                     }
 
                     try:
-                        new_point = HelpPoint(author=author, title=description, geom=map_point, category=category)
+                        new_point = HelpPoint(author=author, title=description, long=long, lat=lat, geom=map_point, category=category)
                         new_point.save()
 
                         messages.add_message(request, messages.SUCCESS, "Your point has been added!")
