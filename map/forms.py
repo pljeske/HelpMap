@@ -11,5 +11,6 @@ class AddHelpPointForm(forms.Form):
     street_nr = forms.CharField()
     zip = forms.CharField()
     city = forms.CharField()
+    title = forms.CharField()
     description = forms.CharField()
     category = forms.ModelChoiceField(queryset=Category.objects.all())

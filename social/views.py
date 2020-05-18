@@ -12,18 +12,18 @@ def show_messages(request):
     messages_receiver = Message.objects.filter(receiver=request.user)
     messages_sender = Message.objects.filter(sender=request.user)
     mails = messages_receiver | messages_sender
-    mails = mails.order_by('-date')
+    mails = mails.order_by('date')
 
     try:
-        users_interacted_with = UserInteraction.objects.get(user=request.user).others
+        user_interactions = UserInteraction.objects.get(user=request.user).others
     except UserInteraction.DoesNotExist:
-        users_interacted_with = []
+        user_interactions = []
 
     form = MessageForm()
     context["mails"] = mails
     context["form"] = form
     context["other_user"] = "everyone"
-    context["users_interacted_with"] = users_interacted_with
+    context["user_interactions"] = user_interactions
     return render(request, "messages/my_messages.html", context)
 
 
@@ -31,7 +31,7 @@ def show_messages_user(request, user_id):
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
-    mails = (messages_sender | messages_receiver).order_by('-date')
+    mails = (messages_sender | messages_receiver).order_by('date')
 
     form = MessageForm()
 
@@ -45,18 +45,20 @@ def show_messages_user(request, user_id):
 
         user_interaction1.others.add(receiver)
         user_interaction2.others.add(request.user)
+        user_interaction1.last_interaction = datetime.datetime.now()
+        user_interaction2.last_interaction = datetime.datetime.now()
         user_interaction1.save()
         user_interaction2.save()
 
     try:
-        users_interacted_with = UserInteraction.objects.get(user=request.user).others
+        users_interactions = UserInteraction.objects.get(user=request.user).others
     except UserInteraction.DoesNotExist:
-        users_interacted_with = []
+        users_interactions = []
 
     context = {"page_title": "Messages " + other_user.username,
                "mails": mails,
                "form": form,
                "other_user": other_user,
-               "users_interacted_with": users_interacted_with}
+               "user_interactions": users_interactions}
 
     return render(request, "messages/my_messages.html", context)

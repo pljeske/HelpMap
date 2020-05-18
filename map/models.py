@@ -17,7 +17,8 @@ class Category(models.Model):
 class HelpPoint(models.Model):
     id = models.AutoField(primary_key=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    title = models.CharField(max_length=250)
+    title = models.CharField(max_length=30)
+    description = models.CharField(max_length=250)
     geom = PointField(default="{'type': 'Point', 'coordinates': [0, 0]}")
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
@@ -26,4 +27,8 @@ class HelpPoint(models.Model):
 
     @property
     def popupContent(self):
-        return '{} by {}<br/>Contact here'.format(self.title, str(self.author))
+        content = f"""
+            {self.title} by {self.author}<br/>
+            <a href=/messages/{self.author.id}>Write message</a>
+        """
+        return content

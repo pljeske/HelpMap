@@ -32,6 +32,7 @@ def add_help_point(request):
                     street_nr = form.cleaned_data.get("street_nr")
                     zip_code = form.cleaned_data.get("zip")
                     city = form.cleaned_data.get("city")
+                    title = form.cleaned_data.get("title")
                     description = form.cleaned_data.get("description")
                     point = get_lat_long(street, street_nr, zip_code)
 
@@ -45,7 +46,7 @@ def add_help_point(request):
                     }
 
                     try:
-                        new_point = HelpPoint(author=author, title=description, geom=map_point, category=category)
+                        new_point = HelpPoint(author=author, title=title, description=description, geom=map_point, category=category)
                         new_point.save()
                         context["form"] = form
                         context["saved_point"] = new_point
