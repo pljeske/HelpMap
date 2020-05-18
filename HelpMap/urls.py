@@ -22,7 +22,6 @@ from social import views as socialviews
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mapviews.index, name="index"),
-    path('index2/', mapviews.index_old, name="index2"),
     path('account/login/', regviews.do_login, name="login"),
     path('account/register/', regviews.do_register, name="register"),
     path('account/logout/', regviews.do_logout, name="logout"),
