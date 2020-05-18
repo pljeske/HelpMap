@@ -16,4 +16,4 @@ EXPOSE 3013
 RUN python manage.py collectstatic
 
 # define the default command to run when starting the container
-CMD ./scripts/run.sh
+CMD ./docker-config/scripts/run.sh
