@@ -9,13 +9,14 @@
     <div class="view">
 		<div class="row">
             <div class="col-md-8 column">
+                <h3 class="text-center">Offer Help</h3>
                 {% leaflet_map "spots" callback="window.map_init" %}
             </div>
             <div class="col-md-4 column">
-                <form action="" method="POST">
+                <form action="" method="POST" style="padding-right: 50px;">
                     {% csrf_token %}
                     {% bootstrap_form form %}
-                    <button type="submit" class="btn btn-primary" value="test">Test</button>
+                    <button type="submit" class="btn btn-primary" value="test">Add</button>
                 </form>
             </div>
         </div>

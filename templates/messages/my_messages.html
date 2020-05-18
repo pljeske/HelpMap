@@ -12,27 +12,23 @@
                     <tr><th class="text-center">Conversations</th></tr>
                 </thead>
                 <tbody>
-                    {% for user in users_interacted_with.all %}
+                    {% for user in user_interactions.all %}
                     <tr><td class="text-center align-center">
                         <a href="/messages/{{ user.id }}">{{ user }}</a>
                     </td></tr>
                     {% endfor %}
                 </tbody>
-            <!--<h4 class="text-center">Conversations</h4>
-			<ul>
-                {% for user in users_interacted_with.all %}
-				<li class="list-item">
-                    <a href="/messages/{{ user.id }}">{{ user }}</a>
-				</li>
-                {% endfor %}
-			</ul>-->
             </table>
 		</div>
 		<div class="col-md-9">
 			<div class="row">
 				<div class="col-md-12">
 					<h3 class="text-center">
+                        {% if other_user == "everyone" %}
+                        All messages
+                        {% else %}
 						Conversation with {{ other_user }}
+                        {% endif %}
 					</h3>
 				</div>
 			</div>
@@ -40,7 +36,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<p>
-                        <strong>{{ message.sender }}</strong> <small>{{ message.date }} </small>: {{ message.text }}
+                        <strong>{{ message.sender }}</strong><small>{{ message.date }} </small>: {{ message.text }}
 					</p>
 				</div>
 			</div>
@@ -52,7 +48,7 @@
                     <form action="" method="POST">
                         {% csrf_token %}
                         {% bootstrap_form form %}
-                        <button type="submit" class="btn btn-primary" value="test">Test</button>
+                        <button type="submit" class="btn btn-primary" value="test">Send</button>
                     </form>
                 </div>
             </div>
