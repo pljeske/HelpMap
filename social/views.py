@@ -1,12 +1,16 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from social.models import *
 from social.forms import *
 from django.contrib import messages
 
 
 def show_messages(request):
+    if not request.user.is_authenticated:
+        messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
+        return redirect("login")
+
     context = {"page_title": "Messages"}
 
     messages_receiver = Message.objects.filter(receiver=request.user)
@@ -28,6 +32,9 @@ def show_messages(request):
 
 
 def show_messages_user(request, user_id):
+    if not request.user.is_authenticated:
+        messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
+        return redirect("login")
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)

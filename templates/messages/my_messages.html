@@ -24,7 +24,11 @@
 			<div class="row">
 				<div class="col-md-12">
 					<h3 class="text-center">
+                        {% if other_user == "everyone" %}
+                        All messages
+                        {% else %}
 						Conversation with {{ other_user }}
+                        {% endif %}
 					</h3>
 				</div>
 			</div>
