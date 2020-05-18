@@ -26,7 +26,8 @@ class Command(BaseCommand):
                 author = User.objects.get(username='admin')
                 title = "Test Point"
                 description = "Test Description"
-                map_point = PointField(default="{'type': 'Point', 'coordinates': [0, 0]}")
+                PointField()
+                map_point = {'type': 'Point', 'coordinates': [52.520008, 13.404954]}
                 category = Category.objects.get(title='Category1')
                 HelpPoint(author=author, title=title, description=description, geom=map_point, category=category).save()
                 print('Successfully created test help points.')
