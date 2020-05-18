@@ -142,6 +142,8 @@ dmypy.json
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
+.idea/**/vcs.xml
+.idea/**/profiles_settings.xml
 
 # File-based project format
 *.iws
@@ -153,4 +155,5 @@ out/
 modules.xml
 .idea/misc.xml
 *.ipr
+
 # End of https://www.gitignore.io/api/django
