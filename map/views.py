@@ -7,13 +7,6 @@ from map.models import HelpPoint
 from map.models import *
 
 
-def index_old(request):
-    context = {"page_title": "Map"}
-    mapbox_access_token = 'pk.my_mapbox_access_token'
-    context["mapbox_access_token"] = 'pk.eyJ1IjoicGxqY2dtIiwiYSI6ImNrOWxnNTltbjA3NmYzbHEwamQxc2Z4YmsifQ.sHPPkFf2k1KDreY5bRIX2A'
-    return render(request, "map/map_old.html", context)
-
-
 def index(request):
     context = {"page_title": "Map"}
     help_points = HelpPoint.objects.all()
