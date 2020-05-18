@@ -4,10 +4,18 @@
 {% bootstrap_javascript %}
 
 {% block content %}
-<div class="container-fluid" style="position: relative;">
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-3 position-fixed">
-            <table id="tablePreview" class="table table-borderless">
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading text-center">Conversations </div>
+                <div class="list-group list-group-flush">
+                    {% for user in user_interactions.all %}
+                        <a href="/messages/{{ user.id }}" class="list-group-item list-group-item-action bg-light">{{ user }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--<table id="tablePreview" class="table table-borderless">
                 <thead>
                     <tr><th class="text-center" id="conversation-top">Conversations</th></tr>
                 </thead>
@@ -18,7 +26,7 @@
                     </td></tr>
                     {% endfor %}
                 </tbody>
-            </table>
+            </table>-->
 		</div>
 		<div class="col-md-9" style="margin-left: 25%;">
             <div class="row">
