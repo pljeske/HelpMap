@@ -7,10 +7,10 @@ from leaflet.forms.widgets import LeafletWidget
 
 
 class AddHelpPointForm(forms.Form):
-    street = forms.CharField()
-    street_nr = forms.CharField()
-    zip = forms.CharField()
-    city = forms.CharField()
-    title = forms.CharField()
-    description = forms.CharField()
+    street = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Street'}))
+    street_nr = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Street Nr.'}))
+    zip = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Zip Code'}))
+    city = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'City'}))
+    title = forms.CharField(label="", widget=forms.TextInput(attrs={'placeholder': 'Title'}))
+    description = forms.CharField(label="", widget=forms.Textarea(attrs={'placeholder': 'Description', 'rows': '8'}))
     category = forms.ModelChoiceField(queryset=Category.objects.all())
