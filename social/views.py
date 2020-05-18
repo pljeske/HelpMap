@@ -16,7 +16,7 @@ def show_messages(request):
     messages_receiver = Message.objects.filter(receiver=request.user)
     messages_sender = Message.objects.filter(sender=request.user)
     mails = messages_receiver | messages_sender
-    mails = mails.order_by('date')
+    mails = mails.order_by('-date')
 
     try:
         user_interactions = UserInteraction.objects.get(user=request.user).others
@@ -38,7 +38,7 @@ def show_messages_user(request, user_id):
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
-    mails = (messages_sender | messages_receiver).order_by('date')
+    mails = (messages_sender | messages_receiver).order_by('-date')
 
     form = MessageForm()
 
