@@ -16,4 +16,4 @@ EXPOSE 3013
 RUN python manage.py collectstatic
 
 # define the default command to run when starting the container
-CMD python manage.py migrate && gunicorn HelpMap.wsgi -b djangoapp:3013
+CMD ./scripts/run.sh
