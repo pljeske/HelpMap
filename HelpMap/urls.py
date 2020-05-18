@@ -29,5 +29,6 @@ urlpatterns = [
     path('who/', mapviews.who, name="who"),
     path('map/help/', mapviews.create_entry, name="create-entry"),
     path('map/add_point/', mapviews.add_help_point, name="add-point"),
-    path('messages/received/', socialviews.show_messages, name="received-messages"),
+    path('messages/', socialviews.show_messages, name="received-messages"),
+    path('messages/<int:user_id>/', socialviews.show_messages_user, name="conversation"),
 ]
