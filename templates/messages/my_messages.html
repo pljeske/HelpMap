@@ -4,26 +4,26 @@
 {% bootstrap_javascript %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container-fluid" style="position: relative;">
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-3 position-fixed">
             <table id="tablePreview" class="table table-borderless">
                 <thead>
-                    <tr><th class="text-center">Conversations</th></tr>
+                    <tr><th class="text-center" id="conversation-top">Conversations</th></tr>
                 </thead>
                 <tbody>
                     {% for user in user_interactions.all %}
                     <tr><td class="text-center align-center">
-                        <a href="/messages/{{ user.id }}">{{ user }}</a>
+                        <a href="/messages/{{ user.id }}" class="nav-link">{{ user }}</a>
                     </td></tr>
                     {% endfor %}
                 </tbody>
             </table>
 		</div>
-		<div class="col-md-9">
-			<div class="row">
+		<div class="col-md-9" style="margin-left: 25%;">
+            <div class="row">
 				<div class="col-md-12">
-					<h3 class="text-center">
+					<h3 class="text-center" id="conversation-head">
                         {% if other_user == "everyone" %}
                         All messages
                         {% else %}
@@ -32,6 +32,20 @@
 					</h3>
 				</div>
 			</div>
+            {% if not other_user == "everyone" %}
+            <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <div class="text-right">
+                            <button type="submit" id="send-button" class="btn btn-primary" value="test">Send</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            {% endif %}
             {% for message in mails %}
 			<div class="row">
 				<div class="col-md-12">
@@ -42,18 +56,9 @@
 			</div>
             <br/>
             {% endfor %}
-            {% if not other_user == "everyone" %}
-            <div class="row">
-                <div class="col-md-12">
-                    <form action="" method="POST">
-                        {% csrf_token %}
-                        {% bootstrap_form form %}
-                        <button type="submit" class="btn btn-primary" value="test">Send</button>
-                    </form>
-                </div>
-            </div>
-            {% endif %}
+
 		</div>
 	</div>
 </div>
+
 {% endblock %}
