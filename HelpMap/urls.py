@@ -13,8 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+
+from HelpMap import settings
 from registration import views as regviews
 from map import views as mapviews
 from social import views as socialviews
@@ -30,4 +33,7 @@ urlpatterns = [
     path('map/add_point/', mapviews.add_help_point, name="add-point"),
     path('messages/', socialviews.show_messages, name="received-messages"),
     path('messages/<int:user_id>/', socialviews.show_messages_user, name="conversation"),
-]
+    path('profile/', socialviews.show_profile, name="profile"),
+    path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
+    path('profile/change', regviews.change_profile, name="change-profile"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

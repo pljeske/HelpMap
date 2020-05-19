@@ -17,3 +17,8 @@ class RegistrationForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class ProfileForm(forms.Form):
+    picture = forms.ImageField(required=False)
+    description = forms.CharField(max_length=150, required=False, widget=forms.Textarea)
