@@ -36,7 +36,7 @@ def show_messages(request):
     mails = messages_receiver | messages_sender
 
     if mails.count() > 0:
-        mails = mails.order_by('-date')
+        mails = mails.order_by('date')
         if mails.first().receiver != request.user:
             user_id = mails.first().receiver.id
         else:
@@ -61,7 +61,7 @@ def show_messages_user(request, user_id):
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
-    mails = (messages_sender | messages_receiver).order_by('-date')
+    mails = (messages_sender | messages_receiver).order_by('date')
 
     form = MessageForm()
 

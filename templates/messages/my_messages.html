@@ -28,7 +28,17 @@
 				</div>
 			</div>
             {% if not other_user == "everyone" %}
-            <div class="row">
+            {% for message in mails %}
+			<div class="row">
+				<div class="col-md-12">
+					<p>
+                        <strong>{{ message.sender }}</strong><small>{{ message.date }} </small>: {{ message.text }}
+					</p>
+				</div>
+			</div>
+            <br/>
+            {% endfor %}
+             <div class="row">
                 <div class="col-md-12">
                     <form action="" method="POST">
                         {% csrf_token %}
@@ -40,20 +50,16 @@
                     </form>
                 </div>
             </div>
-            {% for message in mails %}
-			<div class="row">
-				<div class="col-md-12">
-					<p>
-                        <strong>{{ message.sender }}</strong><small>{{ message.date }} </small>: {{ message.text }}
-					</p>
-				</div>
-			</div>
-            <br/>
-            {% endfor %}
             {% endif %}
 
 		</div>
 	</div>
 </div>
+
+<script language="JavaScript">
+    let input = document.getElementById('id_message');
+    input.focus();
+    input.select();
+</script>
 
 {% endblock %}

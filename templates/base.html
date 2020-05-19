@@ -11,6 +11,9 @@
     body {
         height: 100vh;
     }
+    .navicon {
+         font-size: 30px;
+    }
     .text-middle {
         width: 80%;
         margin: auto;
@@ -71,20 +74,20 @@
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item"><a href="/messages" class="nav-link">
-                <i class="material-icons md-36">email</i>
+                <i class="material-icons md-36 navicon">email</i>
             </a></li>
             <li class="nav-item"><a href="/profile" class="nav-link">
-                <i class="material-icons md-36">account_circle</i>
+                <i class="material-icons md-36 navicon">account_circle</i>
             </a></li>
             <li class="nav-item"><a href="/account/logout" class="nav-link">
-                <i class="material-icons md-36">exit_to_app</i>
+                <i class="material-icons md-36 navicon">exit_to_app</i>
             </a></li>
         {% else %}
             <li class="nav-item"><a href="/account/login" class="nav-link">
-                <i class="material-icons md-36">power_settings_new</i>
+                <i class="material-icons md-36 navicon">power_settings_new</i>
             </a></li>
             <li class="nav-item"><a href="/account/register" class="nav-link">
-                <i class="material-icons md-36">assignment</i>
+                <i class="material-icons md-36 navicon">assignment</i>
             </a></li>
         {% endif %}
     </ul>
