@@ -1,35 +1,31 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from registration.forms import *
+from django.contrib import messages
 
 
 def change_profile(request):
     if request.method == "POST":
-        profile_form = ProfileForm(request.POST)
+        profile_form = ProfileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             profile = User.objects.get(id=request.user.id).profile
-
             try:
-                profile.picture = profile_form.cleaned_data.get("picture")
-                print(profile.picture)
+                profile.picture = profile_form.files.get("picture")
             except Exception as e:
-                print(e)
+                messages.add_message(request, messages.ERROR, "Something went wrong while uploading!")
             try:
-                profile.description = profile_form.cleaned_data.get("description")
+                profile.save()
+                messages.add_message(request, messages.SUCCESS, "Your picture was uploaded!")
             except Exception as e:
-                print(e)
-            try:
-                profile.save() #SUCCESS MELDUNG
-            except Exception as e:
-                pass #FEHLERMELDUNG
-        return redirect(request, "profile")
+                messages.add_message(request, messages.ERROR, "Something went wrong while uploading!")
+        return redirect("profile")
     else:
         profile_form = ProfileForm()
-
-    context = {
-        "form": profile_form
-    }
-    return render(request, "registration/change-profile.html", context)
+        context = {
+            "page_title": "Upload Profile Picture",
+            "form": profile_form
+        }
+        return render(request, "registration/change-profile.html", context)
 
 
 def do_register(request):

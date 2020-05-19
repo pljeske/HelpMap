@@ -35,5 +35,5 @@ urlpatterns = [
     path('messages/<int:user_id>/', socialviews.show_messages_user, name="conversation"),
     path('profile/', socialviews.show_profile, name="profile"),
     path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
-    path('profile/change', regviews.change_profile, name="change-profile"),
+    path('profile/change/', regviews.change_profile, name="change-profile"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
