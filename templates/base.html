@@ -74,7 +74,13 @@
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item"><a href="/messages" class="nav-link">
-                <i class="material-icons md-36 navicon">email</i>
+                <i class="material-icons md-36 navicon"
+                    {% if request.user.profile.is_unread_messages %}
+                        style="color: darkred;"
+                   {% endif %}
+                >
+                    email
+                </i>
             </a></li>
             <li class="nav-item"><a href="/profile" class="nav-link">
                 <i class="material-icons md-36 navicon">account_circle</i>
