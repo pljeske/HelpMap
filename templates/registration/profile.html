@@ -5,9 +5,15 @@
     <div class="container-fluid">
         <div style="width:50%; margin: auto">
             <div class="text-center">
-                <p><img src="{{ other_user.profile.picture.url }}"/></p>
+                <p>
+                    <img src="{{ other_user.profile.picture.url }}"/><br/>
+                    {% if own_profile %}
+                        <a href="/profile/change">change</a>
+                    {% endif %}
+                </p>
                 <p>Username: {{ other_user.username }}<br/>
-                    Name: {{ other_user.first_name }}</p>
+                    Name: {{ other_user.first_name }}<br/>
+                </p>
             </div>
         </div>
     </div>

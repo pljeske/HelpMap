@@ -20,5 +20,5 @@ class LoginForm(forms.Form):
 
 
 class ProfileForm(forms.Form):
-    picture = forms.ImageField(required=False)
-    description = forms.CharField(max_length=150, required=False, widget=forms.Textarea)
+    picture = forms.ImageField(required=True, label="Upload new profile picture")
+    #description = forms.CharField(max_length=150, required=False, widget=forms.Textarea)
