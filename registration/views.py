@@ -22,6 +22,7 @@ def change_profile(request):
                 profile.save() #SUCCESS MELDUNG
             except Exception as e:
                 pass #FEHLERMELDUNG
+        return redirect(request, "profile")
     else:
         profile_form = ProfileForm()
 

@@ -7,8 +7,8 @@ from PIL import Image
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    description = models.CharField(max_length=150, null=True)
-    picture = models.ImageField(null=True, upload_to="", default="standard-profile.jpg") #UPLOAD TO???
+    description = models.CharField(max_length=150, default="<Describe yourself>")
+    picture = models.ImageField(null=True, upload_to="", default="standard-profile.jpg")
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
