@@ -8,7 +8,7 @@ from PIL import Image
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     description = models.CharField(max_length=150, default="<Describe yourself>")
-    picture = models.ImageField(null=True, upload_to="", default="standard-profile.jpg")
+    picture = models.ImageField(null=True, upload_to="", default="standard-profile.png")
     unread_messages_from = models.ManyToManyField(User, related_name="unread_messages_from")
 
     @receiver(post_save, sender=User)
