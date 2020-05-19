@@ -24,16 +24,17 @@ class Command(BaseCommand):
         if HelpPoint.objects.count() == 0:
             try:
                 author = User.objects.get(username='admin')
-                title = "Test Point"
-                description = "Test Description"
-                PointField()
                 map_point = {'type': 'Point', 'coordinates': [13.404954, 52.520008]}
                 category = Category.objects.get(title='Category1')
-                HelpPoint(author=author, title=title, description=description, geom=map_point, category=category).save()
+                HelpPoint(author=author, title="Test Point1", description="Test Description1",
+                          geom=map_point, category=category).save()
+
+                map_point2 = {'type': 'Point', 'coordinates': [13.8, 51.51]}
+                category2 = Category.objects.get(title='Category2')
+                HelpPoint(author=author, title="Test Point2", description="Test Description2",
+                          geom=map_point2, category=category2).save()
                 print('Successfully created test help points.')
             except Exception as e:
                 print('There was an error while creating the test help points: ' + str(e))
         else:
             print('There are already help points in the database.')
-
-        print('Successfully created test data.')

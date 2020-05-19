@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ page_title }}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5926ae8c15.js" crossorigin="anonymous"></script>
 </head>
 <!--<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />-->
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 <style>
     body {
         height: 100vh;
@@ -50,14 +52,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/who">Info </a>
+        <a class="nav-link" href="/info">Info </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/">Get Help </a>
       </li>
     {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="/map/add_point/">Offer Help </a>
+            <a class="nav-link" href="/map/offer_help/">Offer Help </a>
         </li>
     {% endif %}
 
@@ -74,13 +76,11 @@
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item"><a href="/messages" class="nav-link">
-                <i class="material-icons md-36 navicon"
-                    {% if request.user.profile.is_unread_messages %}
-                        style="color: darkred;"
-                   {% endif %}
-                >
-                    email
-                </i>
+                {% if request.user.profile.is_unread_messages %}
+                    <i class="fas fa-envelope-open-text navicon"></i>
+                {% else %}
+                    <i class="fas fa-envelope navicon"></i>
+                {% endif %}
             </a></li>
             <li class="nav-item"><a href="/profile" class="nav-link">
                 <i class="material-icons md-36 navicon">account_circle</i>

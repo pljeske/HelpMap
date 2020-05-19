@@ -25,7 +25,7 @@ def change_profile(request):
             "page_title": "Upload Profile Picture",
             "form": profile_form
         }
-        return render(request, "registration/change-profile.html", context)
+        return render(request, "account/change-profile.html", context)
 
 
 def do_register(request):
@@ -44,7 +44,7 @@ def do_register(request):
     else:
         form = RegistrationForm()
         context["form"] = form
-    return render(request, "registration/register.html", context)
+    return render(request, "account/register.html", context)
 
 
 def do_login(request):
@@ -58,14 +58,13 @@ def do_login(request):
             if account is not None:
                 login(request, account)
                 return redirect("index")
-            else:
-                context["form"] = form
-        else:
-            context["form"] = form
+        context["form"] = form
+        messages.add_message(request, messages.ERROR, "Invalid login data!")
+        return render(request, "account/login.html", context)
     else:
         form = LoginForm()
         context["form"] = form
-        return render(request, "registration/login.html", context)
+        return render(request, "account/login.html", context)
 
 
 def do_logout(request):
