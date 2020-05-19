@@ -3,6 +3,34 @@ from django.contrib.auth import login, authenticate, logout
 from registration.forms import *
 
 
+def change_profile(request):
+    if request.method == "POST":
+        profile_form = ProfileForm(request.POST)
+        if profile_form.is_valid():
+            profile = User.objects.get(id=request.user.id).profile
+
+            try:
+                profile.picture = profile_form.cleaned_data.get("picture")
+                print(profile.picture)
+            except Exception as e:
+                print(e)
+            try:
+                profile.description = profile_form.cleaned_data.get("description")
+            except Exception as e:
+                print(e)
+            try:
+                profile.save() #SUCCESS MELDUNG
+            except Exception as e:
+                pass #FEHLERMELDUNG
+    else:
+        profile_form = ProfileForm()
+
+    context = {
+        "form": profile_form
+    }
+    return render(request, "registration/change-profile.html", context)
+
+
 def do_register(request):
     context = {"page_title": "Registration"}
     if request.method == "POST":
