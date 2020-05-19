@@ -13,11 +13,6 @@
                 </p>
                 <p>Username: {{ other_user.username }}<br/>
                     Name: {{ other_user.first_name }}<br/>
-                    {% if not own_profile %}
-                        <a href="/messages/{{ other_user.id }}">
-                            <i class="material-icons md-48" style="font-size: 48px;">email</i>
-                        </a>
-                    {% endif %}
                 </p>
             </div>
         </div>
