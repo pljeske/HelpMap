@@ -13,7 +13,9 @@ RUN pip install -r requirements.txt
 EXPOSE 3013
 
 #RUN python manage.py migrate
-RUN python manage.py collectstatic
+RUN python manage.py collectstatic --no-input
+
+COPY ./static/media /var/www/static/media
 
 # define the default command to run when starting the container
 CMD ./docker-config/scripts/run.sh
