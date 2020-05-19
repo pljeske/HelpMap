@@ -58,10 +58,9 @@ def do_login(request):
             if account is not None:
                 login(request, account)
                 return redirect("index")
-            else:
-                context["form"] = form
-        else:
-            context["form"] = form
+        context["form"] = form
+        messages.add_message(request, messages.ERROR, "Invalid login data!")
+        return render(request, "registration/login.html", context)
     else:
         form = LoginForm()
         context["form"] = form
