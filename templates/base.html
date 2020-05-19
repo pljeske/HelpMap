@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <title>{{ page_title }}</title>
 </head>
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
-<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+<!--<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
+<link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <style>
     body {
         height: 100vh;
@@ -33,6 +34,7 @@
 {% load bootstrap4 %}
 {% bootstrap_css %}
 {% bootstrap_javascript %}
+
 <body>
 
 {% block header %}
@@ -68,11 +70,22 @@
     {% endif %}
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
-            <li class="nav-item"><a href="/messages" class="nav-link">Messages</a></li>
-            <li class="nav-item"><a href="/account/logout" class="nav-link">Logout</a></li>
+            <li class="nav-item"><a href="/messages" class="nav-link">
+                <i class="material-icons md-36">email</i>
+            </a></li>
+            <li class="nav-item"><a href="/profile" class="nav-link">
+                <i class="material-icons md-36">account_circle</i>
+            </a></li>
+            <li class="nav-item"><a href="/account/logout" class="nav-link">
+                <i class="material-icons md-36">exit_to_app</i>
+            </a></li>
         {% else %}
-            <li class="nav-item"><a href="/account/login" class="nav-link">Login</a></li>
-            <li class="nav-item"><a href="/account/register" class="nav-link">Register</a></li>
+            <li class="nav-item"><a href="/account/login" class="nav-link">
+                <i class="material-icons md-36">power_settings_new</i>
+            </a></li>
+            <li class="nav-item"><a href="/account/register" class="nav-link">
+                <i class="material-icons md-36">assignment</i>
+            </a></li>
         {% endif %}
     </ul>
   </div>
