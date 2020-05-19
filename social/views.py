@@ -1,11 +1,7 @@
-import datetime
-
 from django.shortcuts import render, redirect
-
-from registration.models import Profile
-from social.models import *
 from social.forms import *
 from django.contrib import messages
+import datetime
 
 
 def show_profile(request):
@@ -21,7 +17,7 @@ def show_other_profile(request, user_id):
         "other_user": other_user,
         "own_profile": own_profile
     }
-    return render(request, "registration/profile.html", context)
+    return render(request, "account/profile.html", context)
 
 
 def show_messages(request):
@@ -41,7 +37,7 @@ def show_messages(request):
             user_id = mails.first().receiver.id
         else:
             user_id = mails.first().sender.id
-        return show_messages_user(request, user_id)
+        return message_handler(request, user_id)
 
     try:
         user_interactions = UserInteraction.objects.get(user=request.user).others
@@ -55,7 +51,7 @@ def show_messages(request):
     return render(request, "messages/my_messages.html", context)
 
 
-def show_messages_user(request, user_id):
+def message_handler(request, user_id):
     if not request.user.is_authenticated:
         messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
         return redirect("login")

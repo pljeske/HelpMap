@@ -64,16 +64,12 @@ def add_help_point(request):
         return redirect("login")
 
 
-def who(request):
+def get_info(request):
     context = {"page_title": "Who"}
-    return render(request, "who.html", context)
+    return render(request, "info.html", context)
 
 
-def create_entry(request):
-    context = {"page_title": "Help"}
-    return render(request, "map/help.html", context)
-
-
+#TODO: better lat long service!!!
 def get_lat_long(street, nr, zip):
     nominatim = Nominatim(user_agent="help_map")
 
