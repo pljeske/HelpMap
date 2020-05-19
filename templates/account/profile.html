@@ -17,6 +17,8 @@
                         <a href="/messages/{{ other_user.id }}">
                             <i class="material-icons md-48" style="font-size: 48px;">email</i>
                         </a>
+                    {% else %}
+                        Email: {{ other_user.email }}
                     {% endif %}
                 </p>
             </div>
