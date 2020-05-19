@@ -1,9 +1,27 @@
 import datetime
 
 from django.shortcuts import render, redirect
+
+from registration.models import Profile
 from social.models import *
 from social.forms import *
 from django.contrib import messages
+
+
+def show_profile(request):
+    user = request.user
+    return show_other_profile(request, user.id)
+
+
+def show_other_profile(request, user_id):
+    other_user = User.objects.get(id=user_id)
+    own_profile = (request.user == other_user)
+    context = {
+        "user": request.user,
+        "other_user": other_user,
+        "own_profile": own_profile
+    }
+    return render(request, "registration/profile.html", context)
 
 
 def show_messages(request):
@@ -16,16 +34,21 @@ def show_messages(request):
     messages_receiver = Message.objects.filter(receiver=request.user)
     messages_sender = Message.objects.filter(sender=request.user)
     mails = messages_receiver | messages_sender
-    mails = mails.order_by('-date')
+
+    if mails.count() > 0:
+        mails = mails.order_by('-date')
+        if mails.first().receiver != request.user:
+            user_id = mails.first().receiver.id
+        else:
+            user_id = mails.first().sender.id
+        return show_messages_user(request, user_id)
 
     try:
         user_interactions = UserInteraction.objects.get(user=request.user).others
     except UserInteraction.DoesNotExist:
         user_interactions = []
 
-    form = MessageForm()
     context["mails"] = mails
-    context["form"] = form
     context["other_user"] = "everyone"
     context["user_interactions"] = user_interactions
     return render(request, "messages/my_messages.html", context)
