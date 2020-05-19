@@ -29,7 +29,7 @@ class Command(BaseCommand):
                 HelpPoint(author=author, title="Test Point1", description="Test Description1",
                           geom=map_point, category=category).save()
 
-                map_point2 = {'type': 'Point', 'coordinates': [13.8, 51.51]}
+                map_point2 = {'type': 'Point', 'coordinates': [13.309320, 52.511860]}
                 category2 = Category.objects.get(title='Category2')
                 HelpPoint(author=author, title="Test Point2", description="Test Description2",
                           geom=map_point2, category=category2).save()
