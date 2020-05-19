@@ -36,7 +36,7 @@ def show_messages(request):
     mails = messages_receiver | messages_sender
 
     if mails.count() > 0:
-        mails = mails.order_by('-date')
+        mails = mails.order_by('date')
         if mails.first().receiver != request.user:
             user_id = mails.first().receiver.id
         else:
@@ -51,6 +51,7 @@ def show_messages(request):
     context["mails"] = mails
     context["other_user"] = "everyone"
     context["user_interactions"] = user_interactions
+    context["user"] = request.user
     return render(request, "messages/my_messages.html", context)
 
 
@@ -61,7 +62,12 @@ def show_messages_user(request, user_id):
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
-    mails = (messages_sender | messages_receiver).order_by('-date')
+    mails = (messages_sender | messages_receiver).order_by('date')
+
+    try:
+        request.user.profile.unread_messages_from.remove(other_user.id)
+    except Exception as e:
+        print(e)
 
     form = MessageForm()
 
@@ -80,6 +86,7 @@ def show_messages_user(request, user_id):
         user_interaction1.save()
         user_interaction2.save()
 
+        receiver.profile.unread_messages_from.add(request.user)
     try:
         users_interactions = UserInteraction.objects.get(user=request.user).others
     except UserInteraction.DoesNotExist:
@@ -89,6 +96,7 @@ def show_messages_user(request, user_id):
                "mails": mails,
                "form": form,
                "other_user": other_user,
-               "user_interactions": users_interactions}
+               "user_interactions": users_interactions,
+               "user": request.user}
 
     return render(request, "messages/my_messages.html", context)
