@@ -7,6 +7,7 @@ services:
     volumes:
       - .:/opt/services/djangoapp/src
       - static_volume:/var/www/static #bind shared volume for static files
+      - media_volume:/var/www/media
     depends_on:
       - database1
 
@@ -17,6 +18,7 @@ services:
     volumes:
       - ./docker-config/nginx/conf.d:/etc/nginx/conf.d #add nginx config
       - static_volume:/var/www/static #bind shared volume for static files
+      - media_volume:/var/www/media
     depends_on:
       - djangoapp
 
@@ -30,3 +32,4 @@ services:
 volumes:
   static_volume: #declare shared volume for static files
   database1_volume: #makes db changes persistent even after stopping container
+  media_volume:
