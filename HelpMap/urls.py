@@ -22,6 +22,7 @@ from registration import views as regviews
 from map import views as mapviews
 from social import views as socialviews
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mapviews.index, name="index"),
@@ -35,4 +36,5 @@ urlpatterns = [
     path('profile/', socialviews.show_profile, name="profile"),
     path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
     path('profile/change/', regviews.change_profile, name="change-profile"),
+    path('api/messages/<int:user_id>', socialviews.get_messages_rest, name="api"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

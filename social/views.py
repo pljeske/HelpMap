@@ -1,7 +1,21 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from social.forms import *
 from django.contrib import messages
+from rest_framework import viewsets
+from rest_framework import permissions
+from social.serializers import MessageSerializer
 import datetime
+
+
+def get_messages_rest(request, user_id):
+    if request.method == 'GET' and request.user.is_authenticated:
+        other_user = User.objects.get(id=user_id)
+        messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
+        messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
+        mails = (messages_sender | messages_receiver).order_by('date')
+        serializer = MessageSerializer(mails, many=True)
+        return JsonResponse(serializer.data, safe=False)
 
 
 def show_profile(request):
@@ -52,7 +66,7 @@ def show_messages(request):
     context["other_user"] = "everyone"
     context["user_interactions"] = user_interactions
     context["user"] = request.user
-    return render(request, "messages/my_messages.html", context)
+    return render(request, "messages/messages_rest.html", context)
 
 
 def message_handler(request, user_id):
@@ -99,4 +113,4 @@ def message_handler(request, user_id):
                "user_interactions": users_interactions,
                "user": request.user}
 
-    return render(request, "messages/my_messages.html", context)
+    return render(request, "messages/messages_rest.html", context)
