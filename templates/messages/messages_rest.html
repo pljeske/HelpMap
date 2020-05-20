@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3 position-fixed">
+            <div class="bg-light border-right" id="sidebar-wrapper">
+                <div class="sidebar-heading text-center">Conversations </div>
+                <div class="list-group list-group-flush">
+                    {% for user in user_interactions.all %}
+                        <a href="/messages/{{ user.id }}"
+                           class="list-group-item list-group-item-action bg-light">
+                            {{ user }}
+                        </a>
+                    {% endfor %}
+                </div>
+                {% if not user_interactions %}
+                    <div class="text-center">- no messages yes -</div>
+                {% endif %}
+            </div>
+		</div>
+		<div class="col-md-9" style="margin-left: 25%;">
+            <div class="row">
+				<div class="col-md-12">
+					<h3 class="text-center" id="conversation-head">
+                        {% if not other_user == "everyone" %}
+                            <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;"/><br/>
+                            {{ other_user }}
+                        {% endif %}
+					</h3>
+				</div>
+			</div>
+            {% if not other_user == "everyone" %}
+            {% for message in mails %}
+			<div class="row">
+				<div class="col-md-12" id="message{{ message.id }}">
+					<p>
+                        <strong>{{ message.sender }}</strong><small>{{ message.date }} </small>: {{ message.text }}
+					</p>
+				</div>
+			</div>
+            <br/>
+            {% endfor %}
+                <span id="lastmessage"></span>
+             <div class="row">
+                <div class="col-md-12">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        <div class="text-center">
+                            <button type="submit" id="send-button" class="btn btn-primary btn-lg" value="test">Send</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+		</div>
+	</div>
+</div>
+
+<script language="JavaScript">
+    let input = document.getElementById('id_message');
+    input.focus();
+    input.select();
+
+    $(document).ready(function() {
+        setInterval(ajaxd, 10000);
+    });
+
+    function ajaxd() {
+        $.ajax({
+            type: "GET",
+            url: "/api/messages/{{ other_user.id }}",
+            success: function(msgs){
+                is_new = false;
+                for (msg in msgs){
+                    if($("#message" + msgs[msg]['id']).length == 0) {
+                        $("<div class=\"row\">\n" +
+                            "<div class=\"col-md-12\" id=\"message" + msgs[msg].id + "\">\n" +
+                            "\t\t\t\t\t<p>\n" +
+                            "<strong>" + msgs[msg].sender + "</strong><small>" + msgs[msg].date + "</small>: " + msgs[msg].text + "\n" +
+                            "\t\t\t\t\t</p>\n" +
+                            "\t\t\t\t</div>\n" +
+                            "\t\t\t</div>\n" +
+                            "            <br/>").insertBefore("#lastmessage");
+                        is_new = true;
+                    }
+                }
+                if (is_new){
+                    let input = document.getElementById('id_message');
+                    input.focus();
+                    input.select();
+                }
+            }
+        });
+    }
+</script>
+
+{% endblock %}

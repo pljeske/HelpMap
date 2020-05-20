@@ -22,6 +22,7 @@ from registration import views as regviews
 from map import views as mapviews
 from social import views as socialviews
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', mapviews.index, name="index"),
@@ -29,10 +30,11 @@ urlpatterns = [
     path('account/register/', regviews.do_register, name="register"),
     path('account/logout/', regviews.do_logout, name="logout"),
     path('info/', mapviews.get_info, name="who"),
-    path('map/offer_help/', mapviews.add_help_point, name="add-point"),
+    path('map/offer_help/', mapviews.new_help_point, name="add-point"),
     path('messages/', socialviews.show_messages, name="received-messages"),
     path('messages/<int:user_id>/', socialviews.message_handler, name="conversation"),
     path('profile/', socialviews.show_profile, name="profile"),
     path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
     path('profile/change/', regviews.change_profile, name="change-profile"),
+    path('api/messages/<int:user_id>', socialviews.get_messages_rest, name="api"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
