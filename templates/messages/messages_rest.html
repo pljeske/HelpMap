@@ -77,11 +77,7 @@
             type: "GET",
             url: "/api/messages/{{ other_user.id }}",
             success: function(msgs){
-                console.log(msgs)
                 for (msg in msgs){
-                    console.log("#message" + msgs[msg]['id'])
-                    console.log($("#message" + msgs[msg]['id']).length == 0)
-
                     if($("#message" + msgs[msg]['id']).length == 0) {
                         $("<div class=\"row\">\n" +
                             "<div class=\"col-md-12\" id=\"message" + msgs[msg].id + "\">\n" +
