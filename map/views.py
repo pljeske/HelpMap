@@ -1,13 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from opencage.geocoder import OpenCageGeocode
-
 from map.forms import *
-from geopy.geocoders import Nominatim
-from geopy.location import Location
-from map.models import HelpPoint
 from map.models import *
-
 from map.config.keys import OPENCAGE_API_KEY
 
 
@@ -61,7 +56,7 @@ def new_help_point(request):
 
 
 def get_info(request):
-    context = {"page_title": "Who"}
+    context = {"page_title": "Info"}
     return render(request, "info.html", context)
 
 
