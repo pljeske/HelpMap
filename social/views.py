@@ -10,14 +10,18 @@ def show_profile(request):
 
 
 def show_other_profile(request, user_id):
-    other_user = User.objects.get(id=user_id)
-    own_profile = (request.user == other_user)
-    context = {
-        "user": request.user,
-        "other_user": other_user,
-        "own_profile": own_profile
-    }
-    return render(request, "account/profile.html", context)
+    if request.user.is_authenticated:
+        other_user = User.objects.get(id=user_id)
+        own_profile = (request.user == other_user)
+        context = {
+            "user": request.user,
+            "other_user": other_user,
+            "own_profile": own_profile
+        }
+        return render(request, "account/profile.html", context)
+    else:
+        messages.add_message(request, messages.ERROR, "You must be logged in to do that!")
+        return redirect("login")
 
 
 def show_messages(request):

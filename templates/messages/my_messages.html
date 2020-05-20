@@ -10,13 +10,16 @@
             <div class="bg-light border-right" id="sidebar-wrapper">
                 <div class="sidebar-heading text-center">Conversations </div>
                 <div class="list-group list-group-flush">
-                    {% for ouser in user_interactions.all %}
-                        <a href="/messages/{{ ouser.id }}"
+                    {% for user in user_interactions.all %}
+                        <a href="/messages/{{ user.id }}"
                            class="list-group-item list-group-item-action bg-light">
-                            {{ ouser }}
+                            {{ user }}
                         </a>
                     {% endfor %}
                 </div>
+                {% if not user_interactions %}
+                    <div class="text-center">- no messages yes -</div>
+                {% endif %}
             </div>
 		</div>
 		<div class="col-md-9" style="margin-left: 25%;">
