@@ -148,3 +148,6 @@ LEAFLET_CONFIG = {
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 20
 }
+
+
+GEOIP_PATH = "geolite2city_db"
