@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'djgeojson',
     'leaflet',
+    'rest_framework',
     'registration',
     'map',
     'social',
