@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'djgeojson',
     'leaflet',
+    'rest_framework',
     'registration',
     'map',
     'social',
@@ -147,3 +148,5 @@ LEAFLET_CONFIG = {
     'MIN_ZOOM': 3,
     'MAX_ZOOM': 20
 }
+
+GEOIP_PATH = "geolite2city_db"
