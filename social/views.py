@@ -32,6 +32,9 @@ def show_other_profile(request, user_id):
             "other_user": other_user,
             "own_profile": own_profile
         }
+        if own_profile:
+            own_points = HelpPoint.objects.all().filter(author=request.user)
+            context["own_points"] = own_points
         return render(request, "account/profile.html", context)
     else:
         messages.add_message(request, messages.ERROR, "You must be logged in to do that!")
