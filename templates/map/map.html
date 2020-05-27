@@ -17,7 +17,7 @@
         }
       }
       function map_init(map, options) {
-        L.geoJson(collection, {onEachFeature: onEachFeature}).addTo(map);
+        L.geoJson(collection, {onEachFeature: onEachFeature, pointToLayer: makeColor}).addTo(map);
         map.panTo(L.latLng{{ user_location }});
       }
 

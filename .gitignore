@@ -9,7 +9,8 @@ __pycache__/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-media
+# exclude while media while development
+# media
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -136,6 +137,7 @@ dmypy.json
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
+.idea/**/dataSources.xml
 .idea/**/dataSources.ids
 .idea/**/dataSources.local.xml
 .idea/**/sqlDataSources.xml
@@ -158,3 +160,4 @@ modules.xml
 
 # End of https://www.gitignore.io/api/django
 /map/config/
+
