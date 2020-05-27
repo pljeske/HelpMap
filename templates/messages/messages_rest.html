@@ -31,6 +31,7 @@
         z-index: 0;
         padding-left: 5%;
         padding-right: 5%;
+        padding-bottom: 2%;
         height: 100%;
         overflow-y: auto;
     }
@@ -67,8 +68,10 @@
         <div class="profile_area">
             <h3 class="text-center" id="conversation-head" style="z-index: 2;">
                 {% if not other_user == "everyone" %}
-                    <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;"/><br/>
-                    {{ other_user }}
+                    <a href="/profile/{{ other_user.id }}" style="color: black;">
+                        <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;"/><br/>
+                        {{ other_user }}
+                    </a>
                 {% endif %}
             </h3>
         </div>
