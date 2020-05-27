@@ -4,6 +4,7 @@ from opencage.geocoder import OpenCageGeocode
 from map.forms import *
 from map.models import *
 from map.config.keys import OPENCAGE_API_KEY
+from social.views import show_profile
 from django.contrib.gis.geoip2 import GeoIP2
 
 
@@ -58,6 +59,15 @@ def new_help_point(request):
     else:
         messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
         return redirect("login")
+
+
+def delete_help_point(request, point_id):
+    try:
+        HelpPoint.objects.get(id=point_id).delete()
+        messages.add_message(request, messages.SUCCESS, "Your entry was deleted!")
+    except Exception as e:
+        messages.add_message(request, messages.ERROR, "Something went wrong, deleting your entry!")
+    return show_profile(request)
 
 
 def get_info(request):

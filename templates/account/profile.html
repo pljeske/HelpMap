@@ -23,5 +23,29 @@
                 </p>
             </div>
         </div>
+    {% if own_profile %}
+        <br/><br/>
+        <div style="width:80%; margin: auto">
+            <h3 class="text-center">My Help Offers</h3><br/>
+            <table id="tablePreview" class="table">
+              <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>Description</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for entry in own_points %}
+                <tr>
+                  <td>{{ entry.title }}</td>
+                  <td>{{ entry.description }}</td>
+                    <td><a href="/map/delete/{{ entry.id }}">delete</a></td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    {% endif %}
     </div>
 {% endblock %}
