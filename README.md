@@ -6,3 +6,5 @@ Quickstart:
 4. "docker-compose up"
 
 This automatically creates an admin account with password "password" as well as test categories and test help points, so make sure to change these values.
+
+Test Deployment here: http://helpmap.lucasjeske.de
