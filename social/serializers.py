@@ -5,6 +5,9 @@ from social.models import Message
 
 
 class MessageSerializer(serializers.ModelSerializer):
+    """
+    Serializes a Message object to its JSON representation (used in REST API).
+    """
     sender = StringRelatedField(many=False)
     receiver = StringRelatedField(many=False)
 

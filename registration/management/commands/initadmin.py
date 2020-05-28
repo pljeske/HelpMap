@@ -6,6 +6,10 @@ from django.core.management.base import BaseCommand
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        """
+        manage.py initadmin
+        Command to create admin account if none exists.
+        """
         if User.objects.count() == 0:
             username = 'admin'
             email = 'test@test.com'

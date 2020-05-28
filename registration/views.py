@@ -1,9 +1,12 @@
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from registration.forms import *
 from django.contrib import messages
 
 
+@login_required(redirect_field_name='next', login_url="/account/login")
 def change_profile(request):
     if request.method == "POST":
         profile_form = ProfileForm(request.POST, request.FILES)
@@ -57,7 +60,10 @@ def do_login(request):
             account = authenticate(username=username, password=raw_password)
             if account is not None:
                 login(request, account)
-                return redirect("index")
+                if request.POST.get("next"):
+                    return HttpResponseRedirect(request.POST.get("next"))
+                else:
+                    return redirect("index")
         context["form"] = form
         messages.add_message(request, messages.ERROR, "Invalid login data!")
         return render(request, "account/login.html", context)

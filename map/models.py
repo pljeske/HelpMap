@@ -1,7 +1,5 @@
 from django.db import models
 from djgeojson.fields import *
-
-# Create your models here.
 from djgeojson.fields import PointField
 from django.contrib.auth.models import User
 

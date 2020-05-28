@@ -1,14 +1,14 @@
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 from social.forms import *
-from django.contrib import messages
-from rest_framework import viewsets
-from rest_framework import permissions
 from social.serializers import MessageSerializer
-import datetime
 
 
 def get_messages_rest(request, user_id):
+    """
+    REST API to automatically update message section
+    """
     if request.method == 'GET' and request.user.is_authenticated:
         other_user = User.objects.get(id=user_id)
         messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
@@ -18,34 +18,40 @@ def get_messages_rest(request, user_id):
         return JsonResponse(serializer.data, safe=False)
 
 
+@login_required(redirect_field_name='next', login_url="/account/login")
 def show_profile(request):
+    """
+    Gets called when /profile is called without user_id and calls own profile.
+    """
     user = request.user
     return show_other_profile(request, user.id)
 
 
+@login_required(redirect_field_name='next', login_url="/account/login")
 def show_other_profile(request, user_id):
-    if request.user.is_authenticated:
-        other_user = User.objects.get(id=user_id)
-        own_profile = (request.user == other_user)
-        context = {
-            "user": request.user,
-            "other_user": other_user,
-            "own_profile": own_profile
-        }
-        if own_profile:
-            own_points = HelpPoint.objects.all().filter(author=request.user)
-            context["own_points"] = own_points
-        return render(request, "account/profile.html", context)
-    else:
-        messages.add_message(request, messages.ERROR, "You must be logged in to do that!")
-        return redirect("login")
+    """
+    Shows profile of user requested by id.
+    If it's own profile it also shows the created help points.
+    """
+    other_user = User.objects.get(id=user_id)
+    own_profile = (request.user == other_user)
+    context = {
+        "user": request.user,
+        "other_user": other_user,
+        "own_profile": own_profile
+    }
+    if own_profile:
+        own_points = HelpPoint.objects.all().filter(author=request.user)
+        context["own_points"] = own_points
+    return render(request, "account/profile.html", context)
 
 
+@login_required(redirect_field_name='next', login_url="/account/login")
 def show_messages(request):
-    if not request.user.is_authenticated:
-        messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
-        return redirect("login")
-
+    """
+    Gets called when /messages is called without user_id.
+    Opens the message section from the user with the last interaction.
+    """
     context = {"page_title": "Messages"}
 
     messages_receiver = Message.objects.filter(receiver=request.user)
@@ -66,10 +72,8 @@ def show_messages(request):
         return render(request, "messages/messages_rest.html", context)
 
 
+@login_required(redirect_field_name='next', login_url="/account/login")
 def message_handler(request, user_id):
-    if not request.user.is_authenticated:
-        messages.add_message(request, messages.ERROR, "You have to be logged in to do that!")
-        return redirect("login")
     other_user = User.objects.get(id=user_id)
     messages_sender = Message.objects.filter(sender=request.user, receiver=other_user)
     messages_receiver = Message.objects.filter(sender=other_user, receiver=request.user)
@@ -90,13 +94,12 @@ def message_handler(request, user_id):
         message = Message(sender=request.user, receiver=receiver, text=text)
         message.save()
 
+        # save interaction to sender and receiver
         user_interaction1, created1 = UserInteraction.objects.get_or_create(user=request.user)
         user_interaction2, created2 = UserInteraction.objects.get_or_create(user=receiver)
 
         user_interaction1.others.add(receiver)
         user_interaction2.others.add(request.user)
-        # user_interaction1.last_interaction = datetime.datetime.now()
-        # user_interaction2.last_interaction = datetime.datetime.now()
         user_interaction1.save()
         user_interaction2.save()
 

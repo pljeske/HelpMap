@@ -8,6 +8,10 @@ from map.models import HelpPoint, Category
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
+        """
+        manage.py inittestdata
+        Puts test data in the db.
+        """
         print('Creating test data...')
         print('1. Creating test categories...')
 

@@ -12,5 +12,8 @@ class Message(models.Model):
 
 
 class UserInteraction(models.Model):
+    """
+    Saves the other users a user has communicated with.
+    """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name="user")
     others = models.ManyToManyField(User, related_name="others")
