@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from djgeojson.fields import PointField
-
 from map.models import HelpPoint, Category
+from config.project_config import CATEGORIES
 
 
 class Command(BaseCommand):
@@ -19,7 +19,8 @@ class Command(BaseCommand):
             try:
                 Category(title="Category1").save()
                 Category(title="Category2").save()
-                print('Successfully created test categories.')
+                print('Successfully created categories: ' + CATEGORIES)
+
             except Exception as e:
                 print('There was an error while creating the test categories: ' + str(e))
         else:

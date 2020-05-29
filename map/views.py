@@ -4,9 +4,9 @@ from django.contrib import messages
 from opencage.geocoder import OpenCageGeocode
 from map.forms import *
 from map.models import *
-from map.config.keys import OPENCAGE_API_KEY
 from social.views import show_profile
 from django.contrib.gis.geoip2 import GeoIP2
+from config.project_config import OPENCAGE_API_KEY
 
 
 def index(request):
