@@ -88,12 +88,9 @@ def get_lat_long(street_and_nr, zip_and_city):
 def get_client_location(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     remote_address = request.META.get('REMOTE_ADDR')
-    print(x_forwarded_for)
-    print(remote_address)
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
         location = GeoIP2().lon_lat(ip)
-        print(location)
     elif remote_address and remote_address != "127.0.0.1":
         location = GeoIP2().lon_lat(remote_address)
     else:

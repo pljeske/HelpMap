@@ -29,7 +29,7 @@ class Command(BaseCommand):
             try:
                 for category in CATEGORIES:
                     Category(title=category).save()
-                print('Successfully created categories: ' + CATEGORIES)
+                print('Successfully created categories: ' + str(CATEGORIES))
 
             except Exception as e:
                 print('There was an error while creating the test categories: ' + str(e))
