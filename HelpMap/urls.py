@@ -38,4 +38,4 @@ urlpatterns = [
     path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
     path('profile/change/', regviews.change_profile, name="change-profile"),
     path('api/messages/<int:user_id>', socialviews.get_messages_rest, name="api"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

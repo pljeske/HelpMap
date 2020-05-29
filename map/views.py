@@ -4,9 +4,9 @@ from django.contrib import messages
 from opencage.geocoder import OpenCageGeocode
 from map.forms import *
 from map.models import *
-from map.config.keys import OPENCAGE_API_KEY
 from social.views import show_profile
 from django.contrib.gis.geoip2 import GeoIP2
+from config.project_config import OPENCAGE_API_KEY
 
 
 def index(request):
@@ -88,12 +88,9 @@ def get_lat_long(street_and_nr, zip_and_city):
 def get_client_location(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     remote_address = request.META.get('REMOTE_ADDR')
-    print(x_forwarded_for)
-    print(remote_address)
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]
         location = GeoIP2().lon_lat(ip)
-        print(location)
     elif remote_address and remote_address != "127.0.0.1":
         location = GeoIP2().lon_lat(remote_address)
     else:

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from config.project_config import HOST, USE_SQLITE
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +26,7 @@ SECRET_KEY = 'i0nxy#!^_ohc%$^u7e5g!m6!j4516_g_^%!cws0ip*x9$&h7!q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [HOST]
 
 
 # Application definition
@@ -70,6 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'map.context_processors.get_project_title',
             ],
         },
     },
@@ -81,23 +83,24 @@ WSGI_APPLICATION = 'HelpMap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if USE_SQLITE:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'database1',
-#         'USER': 'database1_role',
-#         'PASSWORD': 'database1_password',
-#         'HOST': 'database1',  # <-- IMPORTANT: same name as docker-compose service!
-#         'PORT': '5432',
-#     }
-# }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'database1',
+            'USER': 'database1_role',
+            'PASSWORD': 'database1_password',
+            'HOST': 'database1',  # <-- IMPORTANT: same name as docker-compose service!
+            'PORT': '5432',
+        }
+    }
 
 
 # Password validation
@@ -140,6 +143,11 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+STATICFILES_DIRS = (
+      os.path.join(BASE_DIR, 'static_files'),
+)
 
 
 LEAFLET_CONFIG = {
