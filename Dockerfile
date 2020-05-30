@@ -14,6 +14,7 @@ EXPOSE 3013
 
 RUN python manage.py collectstatic --noinput
 COPY ./media /var/www/media
+COPY ./static_files /var/www/static
 
 # define the default command to run when starting the container
 CMD ./docker-config/scripts/run.sh
