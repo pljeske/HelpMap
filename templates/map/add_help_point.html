@@ -4,6 +4,7 @@
 {% load geojson_tags %}
 
 {% block content %}
+    <div class="container">
     {% leaflet_js %}
     {% leaflet_css %}
     <div class="view">
@@ -30,5 +31,6 @@
             sp.bindPopup(saved_point.properties.popupContent);
         }
     </script>
+    </div>
 
 {% endblock %}

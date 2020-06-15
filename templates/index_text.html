@@ -1,6 +1,4 @@
 {% load bootstrap4 %}
-{% url 'who' as info %}
-{% url 'add-point' as addpoint %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;400;700&family=Roboto&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5926ae8c15.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 </head>
 <!--<script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />-->
@@ -35,19 +32,28 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item  {% if request.path == info %}active{% endif %}" id="highlight">
+      <li class="nav-item" id="highlight">
         <a class="nav-link" href="{% url 'who' %}">Über Uns</a>
       </li>
       <li class="nav-item" id="highlight">
         <a class="nav-link" href="/">Karte</a>
       </li>
     {% if user.is_authenticated %}
-        <li class="nav-item {% if request.path == addpoint %}active{% endif %}" id="highlight">
+        <li class="nav-item" id="highlight">
             <a class="nav-link" href="{% url 'add-point' %}">Hilfe anbieten</a>
         </li>
     {% endif %}
 
     </ul>
+    {% if messages %}
+    <ul class="navbar-nav justify-content-center">
+        {% for message in messages %}
+            {% if message.tags == "error" or message.tags == "success" %}
+            <li {% if message.tags %}class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
     <ul class="navbar-nav ml-auto">
         {% if user.is_authenticated %}
             <li class="nav-item"><a href="{% url 'received-messages' %}" class="nav-link">
@@ -104,11 +110,11 @@
                             </svg>
                         </div>
     </header>
-    {% include "base/messages.html" %}
-
 {% endblock %}
+<div class="container">
 {% block content %}
 
 {% endblock %}
+</div>
 </body>
 </html>

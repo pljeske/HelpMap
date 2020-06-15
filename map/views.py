@@ -20,6 +20,13 @@ def index(request):
     return render(request, "map/map.html", context)
 
 
+def indextest(request):
+    context = {
+        "page_title": "Map"
+    }
+    return render(request, "index_text.html", context)
+
+
 @login_required(redirect_field_name='next', login_url="/account/login")
 def new_help_point(request):
     context = {"page_title": "Offer Help"}
