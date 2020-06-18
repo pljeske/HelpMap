@@ -1,9 +1,12 @@
-PROJECT_TITLE = "Help Map"
+PROJECT_TITLE = "Berlin hilft"
 LOGO_PATH = "/static/logo.png"
+CUSTOM_CSS = "/static/css/custom.css"
 HOST = "127.0.0.1"
-CATEGORIES = ["Category1", "Category2", "Category3", ]
+CATEGORIES = ["Categorie1", "Categorie2", "Categorie3", "Categorie4", "Categorie5", "Categorie6", ]
 INITIAL_ADMIN_PASSWORD = "password"
 OPENCAGE_API_KEY = 'XXXXXX'
+MAPBOX_API_KEY= 'XXXXX'
+AWS_API_KEY = 'XXXX'
 USE_DOCKER = False
 USE_SQLITE = True
 PRODUCTION = False
