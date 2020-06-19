@@ -146,9 +146,9 @@ else:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 MEDIA_URL = '/media/'
 if USE_DOCKER:
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-else:
     MEDIA_ROOT = '/var/www/media'
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATICFILES_DIRS = (
