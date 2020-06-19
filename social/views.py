@@ -36,6 +36,7 @@ def show_other_profile(request, user_id):
     other_user = User.objects.get(id=user_id)
     own_profile = (request.user == other_user)
     context = {
+        "page_title": "Userprofil",
         "user": request.user,
         "other_user": other_user,
         "own_profile": own_profile

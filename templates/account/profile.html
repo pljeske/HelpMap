@@ -1,38 +1,45 @@
-{% include "base.html" %}
+{% include "base/base.html" %}
 {% load bootstrap4 %}
 
 {% block content %}
-    <div class="container-fluid">
-        <div style="width:50%; margin: auto">
-            <div class="text-center">
-                <p>
-                    <img src="{{ other_user.profile.picture.url }}"/><br/>
-                    {% if own_profile %}
-                        <a href="/profile/change">change</a>
-                    {% endif %}
-                </p>
-                <p>Username: {{ other_user.username }}<br/>
-                    Name: {{ other_user.first_name }}<br/>
-                    {% if not own_profile %}
-                        <a href="/messages/{{ other_user.id }}">
-                            <i class="material-icons md-48" style="font-size: 48px;">email</i>
-                        </a>
-                    {% else %}
-                        Email: {{ other_user.email }}
-                    {% endif %}
-                </p>
-            </div>
+    <div class="container">
+                {% bootstrap_messages %}
+    <div class="row">
+        <div class="col text-center">
+            <img src="{{ other_user.profile.picture.url }}"/><br/>
         </div>
+    <div class="col">
+        <h1>Benutzerdaten</h1>
+        <p><strong>Username:</strong> {{ other_user.username }}</p>
+        <p><strong>Name:</strong> {{ other_user.first_name }}</p>
+                    {% if not own_profile %}
+                        <p><a href="{/messages/{{ other_user.id }}}">
+                            <i class="material-icons md-48" style="font-size: 48px;">email</i>
+                        </a></p>
+                    {% else %}
+                        <p><strong>E-Mail:</strong> {{ other_user.email }}</p>
+                    {% endif %}
+
+        {% if own_profile %}
+            <a href="{% url 'change-profile' %}">
+            <button class="btn btn-primary">Profilbild ändern</button>
+            </a>
+                    {% endif %}
+
+    </div>
+    </div>
     {% if own_profile %}
-        <br/><br/>
-        <div style="width:80%; margin: auto">
-            <h3 class="text-center">My Help Offers</h3><br/>
+        <br>
+        <div class="row justify-content-center">
+            <h1>Meine Hilfsangebote</h1>
+        </div>
+        <div class="row">
             <table id="tablePreview" class="table">
               <thead>
                 <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Delete</th>
+                  <th>Titel</th>
+                  <th>Beschreibung</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>
@@ -40,11 +47,12 @@
                 <tr>
                   <td>{{ entry.title }}</td>
                   <td>{{ entry.description }}</td>
-                    <td><a href="/map/delete/{{ entry.id }}">delete</a></td>
+                    <td><a href="{% url 'delete-point' point_id=entry.id %}">Angebot löschen</a></td>
                 </tr>
               {% endfor %}
               </tbody>
             </table>
+        </div>
         </div>
     {% endif %}
     </div>
