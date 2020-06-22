@@ -11,14 +11,24 @@ services:
     depends_on:
       - database1
 
-  nginx:
-    image: nginx:1.13
+  letsencrypt:
+    image: linuxserver/letsencrypt
+    container_name: letsencrypt-proxy
     ports:
       - 80:80
+      - 443:443
     volumes:
-      - ./docker-config/nginx/conf.d:/etc/nginx/conf.d #add nginx config
-      - static_volume:/var/www/static #bind shared volume for static files
+      - ./docker-config/nginx/default:/config/nginx/site-confs/default
+      - static_volume:/var/www/static
       - media_volume:/var/www/media
+    environment:
+      - EMAIL=test@email.com
+      - URL=helpmap.com
+      - SUBDOMAINS=www
+      - VALIDATION=http
+      - TZ=Europe/Berlin
+      - PUID=1000
+      - PGID=1000
     depends_on:
       - djangoapp
 
