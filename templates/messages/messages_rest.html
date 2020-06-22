@@ -6,25 +6,14 @@
 {% block content %}
 
     <style>
-
-    .grid-container-messages {
-        height: 100%;
-        width: 100%;
-    }
-
     .sidebar {
-        position: fixed;
         left: 0;
         top: 10%;
         width: 20%;
     }
 
     .message_container {
-        position: fixed;
-        top: 10%;
-        left: 20%;
-        width: 80%;
-        height: 90%;
+
     }
 
     .message_area {
@@ -32,30 +21,23 @@
         padding-left: 5%;
         padding-right: 5%;
         padding-bottom: 2%;
-        height: 100%;
-        overflow-y: auto;
-    }
-
-    .profile_area {
-        position: fixed;
-        <!--background-color: white;-->
-        z-index: 2;
-        width: 10%;
-        left: 5%;
-        bottom: 10%;
+        overflow-y: scroll;
+        overflow-x: scroll;
+        max-height: 400px;
     }
 
     </style>
 
-    <div class="grid-container-messages">
-        <div class="sidebar">
+    <div class="container" style="margin-bottom: 2rem;">
+    <div class="row justify-content-md-center">
+        <div class="col-4">
             <!--<ul class="bg-light border-right" id="sidebar-wrapper">-->
-                    <div class="sidebar-heading text-center">Conversations </div>
+            <h1 class="text-center">Nachrichten</h1>
                         <br/>
-                        <ul class="list-group" style="width: 75%; margin: auto;">
+                        <ul class="list-group">
                             {% for user in user_interactions.all %}
-                                <a href="/messages/{{ user.id }}" style="color: black;">
-                                    <li class="list-group-item text-center">
+                                <a href="/messages/{{ user.id }}">
+                                    <li class="list-group-item text-center chatlist">
 
                                             {% if user in unread_from %}
                                             <strong>
@@ -72,49 +54,53 @@
                         </ul>
 
                     {% if not user_interactions %}
-                        <div class="text-center">- no messages yet -</div>
+                        <div class="text-center">- Keine bisherigen Konversationen. -</div>
                     {% endif %}
-                </div>
-        </div>
-
-        <div class="profile_area">
+                <div class="profile_area text-center">
             <h3 class="text-center" id="conversation-head" style="z-index: 2;">
-                {% if not other_user == "everyone" %}
-                    <a href="/profile/{{ other_user.id }}" style="color: black;">
+                                {% if not other_user == "everyone" %}
+                    <a href="/profile/{{ other_user.id }}">
                         <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;"/><br/>
-                        {{ other_user }}
                     </a>
-                {% endif %}
+            <h1 class="nav-link">Profil von {{ other_user }} ansehen</h1>
             </h3>
+                                    {% endif %}
         </div>
-        <div class="message_container">
+                </div>
+        <div class="col">
             <div class="message_area">
                 <br/><br/>
                 {% if not other_user == "everyone" %}
                     {% for message in mails %}
                     <div class="row">
-                        <div class="col-md-12" id="message{{ message.id }}">
+                    {% if message.sender == user %}
+                        <div class="col-md-12 message mychat" id="message{{ message.id }}">
+                            {% else %}
+                        <div class="col-md-12 message otherchat" id="message{{ message.id }}">
+                            {% endif %}
                             <p>
-                                <strong>{{ message.sender }}</strong><small>{{ message.date }} </small>: {{ message.text }}
+                                <small>{{ message.date|date:"SHORT_DATE_FORMAT" }}, {{ message.date|date:"H:i:s" }} von {{ message.sender }}</small><br>{{ message.text }}
                             </p>
                         </div>
                     </div>
                     <br/>
                     {% endfor %}
                         <span id="lastmessage"></span>
-                    <div class="col-md-12">
+            {% endif %}
+
+            </div>
+                         {% if not other_user == "everyone" %}
+                            <div class="col-md-12">
                         <form action="" method="POST">
                             {% csrf_token %}
                             {% bootstrap_form form %}
                             <div class="text-center">
-                                <button type="submit" id="send-button" class="btn btn-primary btn-lg" value="test">Send</button>
+                                <button type="submit" id="send-button" class="btn btn-primary btn-lg" value="test">Abschicken</button>
                             </div>
 
                         </form>
+                                {% endif %}
                     </div>
-            {% endif %}
-
-            </div>
         </div>
     </div>
 

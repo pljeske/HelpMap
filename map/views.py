@@ -1,13 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404, HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.http import Http404
+from django.shortcuts import render
 from django.contrib import messages
-from opencage.geocoder import OpenCageGeocode
 from map.forms import *
 from map.models import *
 from social.views import show_profile
 from django.contrib.gis.geoip2 import GeoIP2
-from config.project_config import OPENCAGE_API_KEY
 
 
 def index(request):
@@ -53,9 +51,8 @@ def new_help_point(request):
                                       category=category)
                 new_point.save()
                 context["form"] = form
-                context["saved_point"] = new_point
                 messages.add_message(request, messages.SUCCESS, "Der Punkt wurde der Karte hinzugefügt")
-                return HttpResponseRedirect("/map/add_help_point_success.html", context)
+                return render(request, "map/add_help_point.html", context)
 
             except Exception as e:
                 messages.add_message(request, messages.ERROR, e)
@@ -81,7 +78,7 @@ def show_help_point(request, offer_id):
         "help_point": help_point
     }
 
-    return render(request, "map/offer_help/success", context)
+    return render(request, "map/help_point_single.html", context)
 
 
 @login_required(redirect_field_name='next', login_url="/account/login")
@@ -106,13 +103,6 @@ def get_info(request):
     return render(request, "info.html", context)
 
 
-def get_lat_long(street_and_nr, zip_and_city):
-    geocoder = OpenCageGeocode(OPENCAGE_API_KEY)
-    query = ", ".join([street_and_nr, zip_and_city])
-    results = geocoder.geocode(query)[0]['geometry']
-    return [results['lng'], results['lat']]
-
-
 def get_client_location(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     remote_address = request.META.get('REMOTE_ADDR')
@@ -124,8 +114,3 @@ def get_client_location(request):
     else:
         location = (13.404954, 52.520008)
     return (location[1], location[0])
-
-
-def new_help_point_success(request):
-    context = {"page_title": "Punkt erfolgreich hinzugefügt."}
-    return render(request, "map/add_help_point_success.html", context)

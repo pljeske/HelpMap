@@ -201,10 +201,6 @@
         background-repeat: no-repeat;
     }
 
-    .mapholder {
-
-    }
-
     footer {
         margin-top: 10px;
         font-family: 'Barlow Condensed', sans-serif;
@@ -215,4 +211,67 @@
 
     .singleview {
         margin-bottom: 1rem!important;
+    }
+
+    .message p {
+        background: #FFD0A5 none repeat scroll 0 0;
+        border-radius: 3px;
+        font-size: 14px;
+        margin: 0;
+        padding: 5px 10px 5px 12px;
+        width: 100%;
+        color: #374B73;
+    }
+
+    .chatlist {
+        background: #FFD0A5;
+        color: #374B73;
+        font-family: 'Barlow Condensed', sans-serif;
+        font-size: 20px;
+        text-decoration: none!important;
+    }
+
+    .chatlist:hover {
+        background: #374B73;
+        color: #FFD0A5;
+        text-decoration: none!important;
+    }
+
+    .mychat {
+        padding-left: 7rem!important;
+        padding-right: 0rem!important;
+    }
+
+    .otherchat {
+        padding-left: 0rem!important;
+        padding-right: 7rem!important;
+    }
+
+    .mychat p {
+        background: #FFFFFF none repeat scroll 0 0;
+        border-radius: 3px;
+        border-color: #374B73;
+        border-style: solid;
+        font-size: 14px;
+        margin: 0;
+        padding: 5px 10px 5px 12px;
+        width: 100%;
+        color: #374B73;
+    }
+
+    .profile_area {
+        margin-top: 2rem;
+    }
+
+    .onstartpage {
+        font-size: 30px;
+        background: transparent;
+        border: 3px solid #374B73;
+        color: #374B73;
+    }
+
+    .onstartpage:hover{
+        background: #374B73;
+        border: 3px solid #374B73;
+        color: #FFD0A5;
     }

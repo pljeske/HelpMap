@@ -33,7 +33,6 @@ urlpatterns = [
     path('offer/<int:offer_id>/', mapviews.show_help_point, name="offer"),
     path('map/', mapviews.map, name="map"),
     path('map/offer_help/', mapviews.new_help_point, name="add-point"),
-    path('map/offer_help/success', mapviews.new_help_point_success, name="success"),
     path('map/delete/<int:point_id>', mapviews.delete_help_point, name="delete-point"),
     path('messages/', socialviews.show_messages, name="received-messages"),
     path('messages/<int:user_id>/', socialviews.message_handler, name="conversation"),

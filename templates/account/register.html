@@ -1,12 +1,27 @@
-{% include "base/base.html" %}
+{% include "base/base_useractions.html" %}
 {% load bootstrap4 %}
 
 {% block content %}
-    <div style="width:25%; margin: auto">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <a href="{% url 'index' %}"><img src="{{ logo_path }}" class="mx-auto d-block loginmark"/></a>
+            <a href="{% url 'index' %}">← Zurück zu {{ project_title }}</a>
+        <div class="card card-signin flex-row my-5">
+          <div class="card-img-left d-none d-md-flex">
+             <!-- Background image for card set in CSS! -->
+          </div>
+          <div class="card-body">
+            <h1 class="card-title text-center">Registrieren</h1>
     <form action="" method="POST" class="form">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Registrierung abschicken</button>
     </form>
+                   </div>
+        </div>
+      </div>
+     </div>
     </div>
+    {% include 'base/wave.html' %}
 {% endblock %}

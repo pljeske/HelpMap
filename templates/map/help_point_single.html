@@ -7,7 +7,8 @@
       <div class="col">
         <h1 class="singleview">{{ help_point.title }}</h1>
           <strong><p>Kategorie:</strong> {{ help_point.category }} | <strong>User:</strong> <a href="{% url 'other-profile' user_id=help_point.author_id %}">{{ help_point.author }}</a></p>
-                  <h2>Beschreibung</h2>
+          <a class="btn-primary btn" href="{% url 'conversation' user_id=help_point.author_id %}">Anbieter kontaktieren</a><br><br>
+          <h2>Beschreibung</h2>
         <p>{{ help_point.description }}</p>
       </div>
     <div class="col">
