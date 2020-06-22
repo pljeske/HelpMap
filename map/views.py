@@ -5,7 +5,6 @@ from django.contrib import messages
 from map.forms import *
 from map.models import *
 from social.views import show_profile
-from django.contrib.gis.geoip2 import GeoIP2
 
 
 def index(request):
@@ -16,12 +15,10 @@ def index(request):
 
 
 def map(request):
-    location = get_client_location(request)
     help_points = HelpPoint.objects.all()
     context = {
         "page_title": "Karte",
         "help_points": help_points,
-        "user_location": location
     }
     return render(request, "map/map.html", context)
 
@@ -99,16 +96,3 @@ def delete_help_point(request, point_id):
 def get_info(request):
     context = {"page_title": "Info"}
     return render(request, "info.html", context)
-
-
-def get_client_location(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    remote_address = request.META.get('REMOTE_ADDR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-        location = GeoIP2().lon_lat(ip)
-    elif remote_address and remote_address != "127.0.0.1":
-        location = GeoIP2().lon_lat(remote_address)
-    else:
-        location = (13.404954, 52.520008)
-    return location[1], location[0]
