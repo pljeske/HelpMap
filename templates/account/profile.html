@@ -37,9 +37,9 @@
             <table id="tablePreview" class="table">
               <thead>
                 <tr>
-                  <th>Titel</th>
-                  <th>Beschreibung</th>
-                  <th></th>
+                  <th scope="col">Titel</th>
+                  <th scope="col">Beschreibung</th>
+                  <th scope="col">Angebot löschen</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,7 +47,7 @@
                 <tr>
                   <td>{{ entry.title }}</td>
                   <td>{{ entry.description }}</td>
-                    <td><a href="{% url 'delete-point' point_id=entry.id %}">Angebot löschen</a></td>
+                    <td><a href="{% url 'delete-point' point_id=entry.id %}">löschen</a></td>
                 </tr>
               {% endfor %}
               </tbody>

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from registration.models import *
+from registration.models import User
 
 
 class RegistrationForm(UserCreationForm):
@@ -39,4 +39,3 @@ class LoginForm(forms.Form):
 
 class ProfileForm(forms.Form):
     picture = forms.ImageField(required=True, label="Neues Profilbild hochladen")
-    # description = forms.CharField(max_length=150, required=False, widget=forms.Textarea)

@@ -15,7 +15,6 @@ class Command(BaseCommand):
         if User.objects.count() == 0:
             username = 'admin'
             email = 'test@test.com'
-            password = 'password'
             print('Creating account for %s (%s)' % (username, email))
             admin = User.objects.create_superuser(email=email, username=username, password=INITIAL_ADMIN_PASSWORD)
             admin.is_active = True
