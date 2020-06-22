@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from social.forms import *
 from social.serializers import MessageSerializer
@@ -33,9 +33,13 @@ def show_other_profile(request, user_id):
     Shows profile of user requested by id.
     If it's own profile it also shows the created help points.
     """
-    other_user = User.objects.get(id=user_id)
+    try:
+        other_user = User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        raise Http404("Der User existiert nicht.")
     own_profile = (request.user == other_user)
     context = {
+        "page_title": "Userprofil",
         "user": request.user,
         "other_user": other_user,
         "own_profile": own_profile

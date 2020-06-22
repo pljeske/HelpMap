@@ -1,12 +1,24 @@
-{% include "base.html" %}
+{% include "base/base_useractions.html" %}
 {% load bootstrap4 %}
 
 {% block content %}
-    <div style="width:25%; margin: auto">
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-10 col-xl-9 mx-auto">
+          <a href="{% url 'index' %}"><img src="{{ logo_path }}" class="mx-auto d-block loginmark"/></a>
+            <a href="{% url 'profile' %}">← Zurück zum Profil</a>
+        <div class="card card-signin flex-row my-5">
+          <div class="card-body">
+            <h1 class="card-title text-center">Profilbild ändern</h1>
     <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {% bootstrap_form form %}
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="submit" class="btn btn-primary">Hochladen</button>
     </form>
+</div>
+        </div>
+      </div>
+     </div>
     </div>
+    {% include 'base/wave.html' %}
 {% endblock %}

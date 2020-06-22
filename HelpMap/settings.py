@@ -164,3 +164,5 @@ LEAFLET_CONFIG = {
 }
 
 GEOIP_PATH = "geolite2city_db"
+
+LOGIN_REDIRECT_URL = "/map"

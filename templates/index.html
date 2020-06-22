@@ -1,0 +1,59 @@
+{% load bootstrap4 %}
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }} | {{ project_title }}</title>
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="{{ custom_css }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@100;400;700&family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/5926ae8c15.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {% bootstrap_javascript %}
+</head>
+<script>
+    $(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+<body>
+{% block header %}
+    <header class="bg-gradient-primary-to-secondary">
+    {% include "base/nav.html" %}
+    <div class="container">
+        <div class="text-middle gate-layer">
+        <h1 class="introtext">Hallo Berlin, hier wird dir geholfen!</h1>
+            <p class="plain">Deine Nachbarschaft braucht dich. Unterstütze deine Nachbarn im Kiez oder berlinweit während der Corona-Krise.</p>
+            </div>
+            <div class="container">
+  <div class="row text-middle">
+    <div class="col-sm">
+ <a class="btn btn-primary onstartpage mx-auto d-block" href="{% url 'map' %}">Zur Karte</a>
+    </div>
+    <div class="col-sm">
+        {% if user.is_authenticated %}
+         <a class="btn btn-primary onstartpage mx-auto d-block" href="{% url 'add-point' %}">Hilfepunkt einreichen</a>
+        {% else %}
+            <a class="btn btn-primary onstartpage mx-auto d-block" href="{% url 'login' %}">Einloggen</a>
+        {% endif %}
+    </div>
+    <div class="col-sm">
+        {% if user.is_authenticated %}
+            <a class="btn btn-primary onstartpage mx-auto d-block" href="{% url 'received-messages' %}">Nachrichten</a>
+        {% else %}
+        <a class="btn btn-primary onstartpage mx-auto d-block" href="{% url 'register' %}">Registrieren</a>
+        {% endif %}
+    </div>
+  </div>
+</div>
+    </div>
+           {% include "base/wave.html" %}
+    </header>
+
+{% endblock %}
+{% block content %}
+
+{% endblock %}
+</body>
+</html>
