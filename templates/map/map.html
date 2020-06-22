@@ -126,7 +126,12 @@ map.on('load', function () {
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
-map.addControl(new mapboxgl.GeolocateControl());
+map.addControl(new mapboxgl.GeolocateControl({
+    positionOptions: {
+        enableHighAccuracy: true
+    },
+        trackUserLocation: true
+}));
 
 var collection = {{ help_points|geojsonfeature:"popupContent,category"|safe }};
 var geojson = collection;
