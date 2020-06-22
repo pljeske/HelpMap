@@ -4,7 +4,6 @@
 <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
   <a class="navbar-brand" href="{% url 'index' %}"><img src="{{ logo_path }}" style="height: 65px;"/></a>
-  <!--<a class="navbar-brand">{{ project_title }}</a>-->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -43,7 +42,6 @@
         </div>
       </li>
         {% else %}
-      <!--</li>-->
             <li class="nav-item"><a href="{% url 'login' %}" class="nav-link">
                 <i class="material-icons md-36 navicon" data-toggle="tooltip" data-placement="bottom" title="Login">login</i>
             </a></li>

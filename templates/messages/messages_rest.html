@@ -31,7 +31,6 @@
     <div class="container" style="margin-bottom: 2rem;">
     <div class="row justify-content-md-center">
         <div class="col-4">
-            <!--<ul class="bg-light border-right" id="sidebar-wrapper">-->
             <h1 class="text-center">Nachrichten</h1>
                         <br/>
                         <ul class="list-group">
@@ -60,7 +59,7 @@
             <h3 class="text-center" id="conversation-head" style="z-index: 2;">
                                 {% if not other_user == "everyone" %}
                     <a href="/profile/{{ other_user.id }}">
-                        <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;"/><br/>
+                        <img src="{{ other_user.profile.picture.url }}" style="width: 100px; height:100px;" alt="profile picture"/><br/>
                     </a>
             <h1 class="nav-link">Profil von {{ other_user }} ansehen</h1>
             </h3>

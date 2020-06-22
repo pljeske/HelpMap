@@ -16,19 +16,20 @@ def change_profile(request):
         profile_form = ProfileForm(request.POST, request.FILES)
         try:
             validate_image_file_extension(request.FILES.get("picture"))
-        except Exception as e:
+        except Exception:
             messages.add_message(request, messages.ERROR, "Es sind nur Bilder erlaubt!")
         if profile_form.is_valid():
             profile = User.objects.get(id=request.user.id).profile
             try:
                 profile.picture = profile_form.files.get("picture")
-            except Exception as e:
+            except Exception:
                 messages.add_message(request, messages.ERROR, "Der Upload ist leider fehlgeschlagen!")
             try:
                 profile.save()
                 messages.add_message(request, messages.SUCCESS, "Ihr Bild wurde erfolgreich hochgeladen!")
-            except Exception as e:
-                messages.add_message(request, messages.ERROR, "Aktuell können wir nicht auf Ihr Profuil zugreifen. Bitte versuchen Sie es später erneut!")
+            except Exception:
+                messages.add_message(request, messages.ERROR, "Aktuell können wir nicht auf Ihr Profuil zugreifen. " +
+                                                              "Bitte versuchen Sie es später erneut!")
         return redirect("profile")
     else:
         profile_form = ProfileForm()

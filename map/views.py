@@ -28,6 +28,7 @@ def map(request):
 
 @login_required(redirect_field_name='next', login_url="/account/login")
 def new_help_point(request):
+    html_file = "map/add_help_point.html"
     context = {"page_title": "Hilfe anbieten"}
     if request.method == "POST":
         form = NewHelpPointForm(request.POST)
@@ -40,7 +41,7 @@ def new_help_point(request):
                 if point is None:
                     messages.add_message(request, messages.ERROR, "Standort fehlerhaft!")
                     context["form"] = form
-                    return render(request, "map/add_help_point.html", context)
+                    return render(request, html_file, context)
                 point_list = point.split(",")
                 map_point = {
                     'type': 'Point',
@@ -52,7 +53,7 @@ def new_help_point(request):
                 new_point.save()
                 context["form"] = form
                 messages.add_message(request, messages.SUCCESS, "Der Punkt wurde der Karte hinzugefügt")
-                return render(request, "map/add_help_point.html", context)
+                return render(request, html_file, context)
 
             except Exception as e:
                 messages.add_message(request, messages.ERROR, e)
@@ -63,11 +64,12 @@ def new_help_point(request):
     else:
         form = NewHelpPointForm()
         context["form"] = form
-        return render(request, "map/add_help_point.html", context)
-    return render(request, "map/add_help_point.html", context)
+        return render(request, html_file, context)
+    return render(request, html_file, context)
 
 
 def show_help_point(request, offer_id):
+    html_file = "map/help_point_single.html"
     try:
         help_point = HelpPoint.objects.get(id=offer_id)
     except HelpPoint.DoesNotExist:
@@ -77,15 +79,11 @@ def show_help_point(request, offer_id):
         "page_title": help_point.title,
         "help_point": help_point
     }
-
-    return render(request, "map/help_point_single.html", context)
+    return render(request, html_file, context)
 
 
 @login_required(redirect_field_name='next', login_url="/account/login")
 def delete_help_point(request, point_id):
-    context = {
-        "page_title": "Helppoint löschen"
-    }
     try:
         help_point = HelpPoint.objects.get(id=point_id)
         if help_point.author == request.user:
@@ -93,7 +91,7 @@ def delete_help_point(request, point_id):
             messages.add_message(request, messages.SUCCESS, "Das Angebot wurde gelöscht")
         else:
             messages.add_message(request, messages.ERROR, "Sie können nur die mit Ihrem Nutzerkonto verknüpften Angebote löschen.")
-    except Exception as e:
+    except Exception:
         messages.add_message(request, messages.ERROR, "Leider ist beim Löschen ein Fehler aufgetreten.")
     return show_profile(request)
 
@@ -113,4 +111,4 @@ def get_client_location(request):
         location = GeoIP2().lon_lat(remote_address)
     else:
         location = (13.404954, 52.520008)
-    return (location[1], location[0])
+    return location[1], location[0]
