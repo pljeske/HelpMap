@@ -27,8 +27,7 @@ class HelpPoint(models.Model):
     def popupContent(self):
         content = f"""
             <img src="{self.author.profile.picture.url}" style="width: 50px; height: 50px;"/><br/>
-            <strong>{self.title}</strong> by <a href='/profile/{self.author.id}'>{self.author}</a><br/>
-            {self.description}<br/>
-            <a href='/messages/{self.author.id}'>Write message</a>
+            <strong>{self.title}</strong> von <a href='/profile/{self.author.id}'>{self.author}</a><br/>
+            <a href='/offer/{self.id}'>Zum Angebot</a>
         """
         return content
