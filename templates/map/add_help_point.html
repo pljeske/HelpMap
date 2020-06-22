@@ -47,7 +47,8 @@ type="text/css"
 <div id="map"></div>
 
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1IjoiZWRpZXR6c2NoIiwiYSI6ImNrYmgyNzhidzAxN2kydXF2ZnFiNWIwOGsifQ.K4qRqMRy5pc0RVjjIx6AOw';
+	mapboxgl.accessToken = '{{ mapbox_api_key }}';
+
 
 if (!mapboxgl.supported()) {
     alert('Ihr Browser unterstützt diese Version MapboxGL leider nicht.');

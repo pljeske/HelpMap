@@ -92,7 +92,7 @@ margin-right: 5px;
 <script>
 const categories = { 1: "Verschenken", 2: "Einkaufshilfe", 3: "Homeschooling", 4: "Helfende Hände", 5: "Studentenjobs", 6: "Mitfahrzentrale" };
 const category_counter = Object.keys(categories).length;
-mapboxgl.accessToken = 'pk.eyJ1IjoiZWRpZXR6c2NoIiwiYSI6ImNrYmgyNzhidzAxN2kydXF2ZnFiNWIwOGsifQ.K4qRqMRy5pc0RVjjIx6AOw';
+mapboxgl.accessToken = '{{ mapbox_api_key }}';
 var filterGroup = document.getElementById('filter-group');
 var map = new mapboxgl.Map({
 container: 'map',
