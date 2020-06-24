@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from config.project_config import HOST, USE_SQLITE, USE_DOCKER
+from config.project_config import HOST, USE_DOCKER
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,7 +26,7 @@ SECRET_KEY = 'i0nxy#!^_ohc%$^u7e5g!m6!j4516_g_^%!cws0ip*x9$&h7!q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [HOST]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', HOST]
 
 
 # Application definition
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'HelpMap.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if USE_SQLITE:
+if not USE_DOCKER:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

@@ -6,5 +6,4 @@ CATEGORIES = ["Verschenken", "Einkaufshilfe", "Homeschooling", "Helfende Hände"
 INITIAL_ADMIN_PASSWORD = "password"
 MAPBOX_API_KEY = 'XXXXX'
 USE_DOCKER = False
-USE_SQLITE = True
 PRODUCTION = False
