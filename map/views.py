@@ -14,7 +14,7 @@ def index(request):
     return render(request, "index.html", context)
 
 
-def map(request):
+def show_map(request):
     help_points = HelpPoint.objects.all()
     context = {
         "page_title": "Karte",
@@ -56,7 +56,8 @@ def new_help_point(request):
                 messages.add_message(request, messages.ERROR, e)
                 context["form"] = form
         else:
-            messages.add_message(request, messages.ERROR, "Bitte füllen Sie alle Felder aus und wählen Sie einen Standort!")
+            messages.add_message(request, messages.ERROR,
+                                 "Bitte füllen Sie alle Felder aus und wählen Sie einen Standort!")
             context["form"] = form
     else:
         form = NewHelpPointForm()
@@ -87,7 +88,8 @@ def delete_help_point(request, point_id):
             help_point.delete()
             messages.add_message(request, messages.SUCCESS, "Das Angebot wurde gelöscht")
         else:
-            messages.add_message(request, messages.ERROR, "Sie können nur die mit Ihrem Nutzerkonto verknüpften Angebote löschen.")
+            messages.add_message(request, messages.ERROR,
+                                 "Sie können nur die mit Ihrem Nutzerkonto verknüpften Angebote löschen.")
     except Exception:
         messages.add_message(request, messages.ERROR, "Leider ist beim Löschen ein Fehler aufgetreten.")
     return show_profile(request)

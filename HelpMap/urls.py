@@ -31,7 +31,7 @@ urlpatterns = [
     path('account/logout/', regviews.do_logout, name="logout"),
     path('info/', mapviews.get_info, name="who"),
     path('offer/<int:offer_id>/', mapviews.show_help_point, name="offer"),
-    path('map/', mapviews.map, name="map"),
+    path('map/', mapviews.show_map, name="map"),
     path('map/offer_help/', mapviews.new_help_point, name="add-point"),
     path('map/delete/<int:point_id>', mapviews.delete_help_point, name="delete-point"),
     path('messages/', socialviews.show_messages, name="received-messages"),
@@ -40,4 +40,5 @@ urlpatterns = [
     path('profile/<int:user_id>', socialviews.show_other_profile, name="other-profile"),
     path('profile/change/', regviews.change_profile, name="change-profile"),
     path('api/messages/<int:user_id>', socialviews.get_messages_rest, name="api"),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
+              + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

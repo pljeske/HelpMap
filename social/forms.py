@@ -1,4 +1,3 @@
-from social.models import *
 from django import forms
 
 

@@ -1,8 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
 from social.forms import *
+from social.models import Message, UserInteraction
 from social.serializers import MessageSerializer
+from map.models import HelpPoint
 
 
 def get_messages_rest(request, user_id):

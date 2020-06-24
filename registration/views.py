@@ -1,13 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ValidationError
 from django.core.validators import validate_image_file_extension
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate, logout
 
 from HelpMap import settings
 from registration.forms import *
-from django.contrib import messages
 
 
 @login_required(redirect_field_name='next', login_url="/account/login")

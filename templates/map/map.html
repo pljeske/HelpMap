@@ -112,13 +112,13 @@ const images =[
     {url: '/static/map/icon-4.png', id: 'icon-4'},
     {url: '/static/map/icon-5.png', id: 'icon-5'},
     {url: '/static/map/icon-6.png', id: 'icon-6'}
-]
+];
 
 images.forEach(img => {
     map.loadImage(img.url, function(error, res) {
       map.addImage(img.id, res)
     })
-})
+});
 
 map.on('load', function () {
     map.resize();
@@ -165,10 +165,8 @@ collection.features.forEach(function(feature) {
 var symbol = feature.properties['category'];
 var layerID = 'marker-' + symbol;
 layerIdCollection.push(layerID);
-console.log(layerIdCollection)
 
 // Add a layer for this symbol type if it hasn't been added already.
-    console.log(layerID)
 if (!map.getLayer(layerID)) {
 map.addLayer({
 'id': layerID,

@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
-from djgeojson.fields import PointField
-from map.models import HelpPoint, Category
+
 from config.project_config import CATEGORIES
+from map.models import HelpPoint, Category
 
 
 class Command(BaseCommand):
