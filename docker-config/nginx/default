@@ -1,0 +1,45 @@
+# first we declare our upstream server, which is our Gunicorn application
+upstream hello_server {
+    # docker will automatically resolve this to the correct address
+    # because we use the same name as the service: "djangoapp"
+    server djangoapp:3013;
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name localhost;
+
+    include /config/nginx/ssl.conf;
+
+    client_max_body_size 0;
+
+    # enable for ldap auth, fill in ldap details in ldap.conf
+    #include /config/nginx/ldap.conf;
+
+    location / {
+        # enable the next two lines for http auth
+        #auth_basic "Restricted";
+        #auth_basic_user_file /config/nginx/.htpasswd;
+
+        # enable the next two lines for ldap auth
+        #auth_request /auth;
+        #error_page 401 =200 /login;
+
+        include /config/nginx/proxy.conf;
+        resolver 127.0.0.11 valid=30s;
+
+        set $upstream_server djangoapp;
+        proxy_pass http://$upstream_server:3013;
+        proxy_redirect off;
+    }
+
+    location /static {
+        alias /var/www/static;
+    }
+    location /media {
+        alias /var/www/media;
+    }
+}
+
