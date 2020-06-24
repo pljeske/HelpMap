@@ -71,7 +71,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'map.context_processors.get_project_title',
+                'map.context_processors.get_project_info',
             ],
         },
     },
@@ -97,7 +97,7 @@ else:
             'NAME': 'database1',
             'USER': 'database1_role',
             'PASSWORD': 'database1_password',
-            'HOST': 'database1',  # <-- IMPORTANT: same name as docker-compose service!
+            'HOST': 'database1',  # needs to be the same as the postgresql docker-compose service
             'PORT': '5432',
         }
     }
@@ -155,12 +155,5 @@ STATICFILES_DIRS = (
       os.path.join(BASE_DIR, 'static_files'),
 )
 
-
-LEAFLET_CONFIG = {
-    'DEFAULT_CENTER': (52.520008, 13.404954),
-    'DEFAULT_ZOOM': 12,
-    'MIN_ZOOM': 3,
-    'MAX_ZOOM': 20
-}
 
 LOGIN_REDIRECT_URL = "/map"
