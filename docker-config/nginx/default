@@ -5,6 +5,13 @@ upstream hello_server {
     server djangoapp:3013;
 }
 
+# http to https redirect
+server {
+    listen 80 default_server;
+    server_name _;
+    return 301 https://$host$request_uri;
+}
+
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
