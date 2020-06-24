@@ -17,3 +17,6 @@ This automatically creates an admin account with the password defined in config 
 2. Change configuration to desired values in '/config/project_config.py'
 3. "manage.py initproject"
 4. Run locally with "manage.py runserver" or deploy according to your needs
+
+***Contributions***
+Icons: https://mapicons.mapsmarker.com/
